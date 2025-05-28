@@ -1,0 +1,97 @@
+﻿{
+   "CodeGenerationMode": 4,
+   "ContextClassName": "SU25_PRN222_SE1709_G2_DrugPreventionSystemContext",
+   "ContextNamespace": null,
+   "FilterSchemas": false,
+   "IncludeConnectionString": true,
+   "ModelNamespace": null,
+   "OutputContextPath": null,
+   "OutputPath": "Models",
+   "PreserveCasingWithRegex": true,
+   "ProjectRootNamespace": "DrugPrevention.Repositories.TuyenTM",
+   "Schemas": null,
+   "SelectedHandlebarsLanguage": 2,
+   "SelectedToBeGenerated": 0,
+   "T4TemplatePath": null,
+   "Tables": [
+      {
+         "Name": "[dbo].[AppointmentsNganVHH]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[CommunityProgramsToanNS]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[ConsultantScheduleTrongLH]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[ConsultantsTrongLH]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[CoursesQuangTNV]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[ProgramParticipantsToanNS]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[SurveyQuestionsQuangTNV]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[SurveysNamND]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[System.UserAccount]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[UserAppointmentsNganVHH]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[UserCoursesTuyenTM]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[UsersTuyenTM]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[UserSurveysNamND]",
+         "ObjectType": 0
+      }
+   ],
+   "UiHint": null,
+   "UncountableWords": null,
+   "UseAsyncStoredProcedureCalls": true,
+   "UseBoolPropertiesWithoutDefaultSql": false,
+   "UseDatabaseNames": true,
+   "UseDatabaseNamesForRoutines": true,
+   "UseDateOnlyTimeOnly": true,
+   "UseDbContextSplitting": false,
+   "UseDecimalDataAnnotationForSprocResult": true,
+   "UseFluentApiOnly": true,
+   "UseHandleBars": false,
+   "UseHierarchyId": false,
+   "UseInflector": true,
+   "UseInternalAccessModifiersForSprocsAndFunctions": false,
+   "UseLegacyPluralizer": false,
+   "UseManyToManyEntity": false,
+   "UseNoDefaultConstructor": false,
+   "UseNoNavigations": false,
+   "UseNoObjectFilter": false,
+   "UseNodaTime": false,
+   "UseNullableReferences": false,
+   "UsePrefixNavigationNaming": false,
+   "UseSchemaFolders": false,
+   "UseSchemaNamespaces": false,
+   "UseSpatial": false,
+   "UseT4": false,
+   "UseT4Split": false
+}

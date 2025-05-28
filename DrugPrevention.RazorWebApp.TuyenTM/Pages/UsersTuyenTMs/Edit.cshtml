@@ -1,0 +1,82 @@
+﻿@page
+@model DrugPrevention.RazorWebApp.TuyenTM.Pages.UsersTuyenTMs.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>UsersTuyenTM</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="UsersTuyenTM.UserTuyenTMID" />
+            <div class="form-group">
+                <label asp-for="UsersTuyenTM.Username" class="control-label"></label>
+                <input asp-for="UsersTuyenTM.Username" class="form-control" />
+                <span asp-validation-for="UsersTuyenTM.Username" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UsersTuyenTM.Password" class="control-label"></label>
+                <input asp-for="UsersTuyenTM.Password" class="form-control" />
+                <span asp-validation-for="UsersTuyenTM.Password" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UsersTuyenTM.Email" class="control-label"></label>
+                <input asp-for="UsersTuyenTM.Email" class="form-control" />
+                <span asp-validation-for="UsersTuyenTM.Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UsersTuyenTM.FirstName" class="control-label"></label>
+                <input asp-for="UsersTuyenTM.FirstName" class="form-control" />
+                <span asp-validation-for="UsersTuyenTM.FirstName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UsersTuyenTM.LastName" class="control-label"></label>
+                <input asp-for="UsersTuyenTM.LastName" class="form-control" />
+                <span asp-validation-for="UsersTuyenTM.LastName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UsersTuyenTM.Role" class="control-label"></label>
+                <input asp-for="UsersTuyenTM.Role" class="form-control" />
+                <span asp-validation-for="UsersTuyenTM.Role" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UsersTuyenTM.RegistrationDate" class="control-label"></label>
+                <input asp-for="UsersTuyenTM.RegistrationDate" class="form-control" />
+                <span asp-validation-for="UsersTuyenTM.RegistrationDate" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="UsersTuyenTM.IsActive" /> @Html.DisplayNameFor(model => model.UsersTuyenTM.IsActive)
+                </label>
+            </div>
+            <div class="form-group">
+                <label asp-for="UsersTuyenTM.PhoneNumber" class="control-label"></label>
+                <input asp-for="UsersTuyenTM.PhoneNumber" class="form-control" />
+                <span asp-validation-for="UsersTuyenTM.PhoneNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label for="SelectedCourseIds">Courses</label>
+                <select asp-for="SelectedCourseIds" asp-items="Model.AllCourses" class="form-control" multiple="multiple" size="4"></select>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
