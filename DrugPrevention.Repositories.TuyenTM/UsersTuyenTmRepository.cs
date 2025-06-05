@@ -26,7 +26,17 @@ namespace DrugPrevention.Repositories.TuyenTM
             var user = await _context.UsersTuyenTMs
                 .Include(u => u.UserCoursesTuyenTMs)
                 .ThenInclude(uc => uc.Course)
+                .Include(u => u.ConsultantsTrongLHs)
+                .ThenInclude(uc => uc.ConsultantScheduleTrongLHs)
+                .Include(u => u.ProgramParticipantsToanNs)
+                .Include(u => u.CommunityProgramsToanNs)
+                .Include(u => u.UserSurveysNamNDs)
+                .Include(u => u.UserAppointmentsNganVHHs)
+                .ThenInclude(ua => ua.Appointment)
+                .ThenInclude(a => a.Consultant)
+  
                 .FirstOrDefaultAsync(u => u.UserTuyenTMID == code);
+
             return user ?? new UsersTuyenTM();
         }
 
@@ -39,6 +49,16 @@ namespace DrugPrevention.Repositories.TuyenTM
                 (u.Username.Contains(name) || string.IsNullOrEmpty(name))
                 ).ToListAsync();
             return user ?? new List<UsersTuyenTM>();
+        }
+        public async Task<bool> RemoveCustomize(UsersTuyenTM entity)
+        {
+            _context.UserCoursesTuyenTMs.RemoveRange(entity.UserCoursesTuyenTMs);
+            _context.ConsultantsTrongLHs.RemoveRange(entity.ConsultantsTrongLHs);
+            _context.ProgramParticipantsToanNs.RemoveRange(entity.ProgramParticipantsToanNs);
+            _context.UserAppointmentsNganVHHs.RemoveRange(entity.UserAppointmentsNganVHHs);
+            _context.UsersTuyenTMs.Remove(entity);
+
+            return await _context.SaveChangesAsync() > 0;
         }
 
 

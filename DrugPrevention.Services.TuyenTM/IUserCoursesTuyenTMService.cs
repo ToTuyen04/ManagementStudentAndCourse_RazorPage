@@ -10,5 +10,6 @@ namespace DrugPrevention.Services.TuyenTM
     public interface IUserCoursesTuyenTMService
     {
         Task<List<UserCoursesTuyenTM>> GetAllAsync();
+        Task<bool> DeleteAsync(int code);
     }
 }

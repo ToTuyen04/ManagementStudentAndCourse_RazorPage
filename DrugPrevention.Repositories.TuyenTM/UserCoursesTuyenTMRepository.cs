@@ -38,5 +38,7 @@ namespace DrugPrevention.Repositories.TuyenTM
                 ).ToListAsync();
             return user ?? new List<UserCoursesTuyenTM>();
         }
+
+        
     }
 }

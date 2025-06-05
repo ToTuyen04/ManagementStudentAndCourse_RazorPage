@@ -1,5 +1,7 @@
+﻿using DrugPrevention.RazorWebApp.TuyenTM.Hubs;
 using DrugPrevention.Repositories.TuyenTM.DBContext;
 using DrugPrevention.Services.TuyenTM;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace DrugPrevention.RazorWebApp.TuyenTM
 {
@@ -13,8 +15,20 @@ namespace DrugPrevention.RazorWebApp.TuyenTM
             builder.Services.AddScoped<IUserCoursesTuyenTMService, UserCoursesTuyenTMService>();
             builder.Services.AddScoped<ICoursesQuangTNVService, CoursesQuangTNVService>();
 
+
+            //Add Authentication & Authorization
+            builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+            .AddCookie(options =>
+            {
+                options.AccessDeniedPath = "/Account/Forbidden";
+                options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
+            });
+
             // Add services to the container.
             builder.Services.AddRazorPages();
+
+            //SignalR
+            builder.Services.AddSignalR();
 
             var app = builder.Build();
 
@@ -34,6 +48,12 @@ namespace DrugPrevention.RazorWebApp.TuyenTM
             app.UseAuthorization();
 
             app.MapRazorPages();
+
+            //thêm RequireAuthorization để yêu cầu xác thực cho tất cả các trang Razor
+            app.MapRazorPages().RequireAuthorization();
+
+            //SignalR
+            app.MapHub<DrugPreventionHub>("/DrugPreventionHub");
 
             app.Run();
         }

@@ -2,63 +2,100 @@
 @model DrugPrevention.RazorWebApp.TuyenTM.Pages.UsersTuyenTMs.DeleteModel
 
 @{
-    ViewData["Title"] = "Delete User";
+	ViewData["Title"] = "Delete User";
 
-    var properties = new (string Label, object Value)[]
-    {
-        ("Username", Model.UsersTuyenTM?.Username),
-        ("Password", Model.UsersTuyenTM?.Password),
-        ("Email", Model.UsersTuyenTM?.Email),
-        ("First Name", Model.UsersTuyenTM?.FirstName),
-        ("Last Name", Model.UsersTuyenTM?.LastName),
-        ("Role", Model.UsersTuyenTM?.Role),
-        ("Registration Date", Model.UsersTuyenTM?.RegistrationDate.ToString("yyyy-MM-dd")),
-        ("Active", Model.UsersTuyenTM?.IsActive == true ? "Yes" : "No"),
-        ("Phone Number", Model.UsersTuyenTM?.PhoneNumber),
-        ("Course Name", Model.UsersTuyenTM.UserCoursesTuyenTMs)
-    };
+	var properties = new (string Label, object Value)[]
+	{
+		("Username", Model.UsersTuyenTM?.Username),
+		("Password", Model.UsersTuyenTM?.Password),
+		("Email", Model.UsersTuyenTM?.Email),
+		("First Name", Model.UsersTuyenTM?.FirstName),
+		("Last Name", Model.UsersTuyenTM?.LastName),
+		("Role", Model.UsersTuyenTM?.Role),
+		("Registration Date", Model.UsersTuyenTM?.RegistrationDate.ToString("yyyy-MM-dd")),
+		("Active", Model.UsersTuyenTM?.IsActive == true ? "Yes" : "No"),
+		("Phone Number", Model.UsersTuyenTM?.PhoneNumber),
+		("Course Name", Model.UsersTuyenTM.UserCoursesTuyenTMs)
+	};
 }
 
 <div class="container mt-5">
-    <div class="card shadow-sm border-danger">
-        <div class="card-header bg-danger text-white">
-            <h2 class="mb-0">Delete Confirmation</h2>
-        </div>
-        <div class="card-body">
-            <h5 class="text-danger">Are you sure you want to delete this user?</h5>
-            <hr />
-            <dl class="row">
-                @foreach (var prop in properties)
-                {
-                    <dt class="col-sm-3">@prop.Label</dt>
-                    <dd class="col-sm-9">@prop.Value</dd>
-                }
+	<div class="card shadow-sm border-danger">
+		<div class="card-header bg-danger text-white">
+			<h2 class="mb-0">Delete Confirmation</h2>
+		</div>
+		<div class="card-body">
+			<h5 class="text-danger">Are you sure you want to delete this user?</h5>
+			<hr />
+			<dl class="row">
+				@foreach (var prop in properties)
+				{
+					<dt class="col-sm-3">@prop.Label</dt>
+					<dd class="col-sm-9">@prop.Value</dd>
+				}
 
-                @if (Model.UsersTuyenTM?.UserCoursesTuyenTMs?.Any() == true)
-                {
-                    <dt class="col-sm-3">Courses</dt>
-                    <dd class="col-sm-9">
-                        <ul class="mb-0">
-                            @foreach (var course in Model.UsersTuyenTM.UserCoursesTuyenTMs)
-                            {
-                                <li>@course.Course?.Title</li>
-                            }
-                        </ul>
-                    </dd>
-                }
-            </dl>
+				@if (Model.UsersTuyenTM?.UserCoursesTuyenTMs?.Any() == true)
+				{
+					<dt class="col-sm-3">Courses</dt>
+					<dd class="col-sm-9">
+						<ul class="mb-0">
+							@foreach (var course in Model.UsersTuyenTM.UserCoursesTuyenTMs)
+							{
+								<li>@course.Course?.Title</li>
+							}
+						</ul>
+					</dd>
+				}
+			</dl>
 
-            <form method="post">
-                <input type="hidden" asp-for="UsersTuyenTM.UserTuyenTMID" />
-                <div class="d-flex justify-content-between">
-                    <button type="submit" class="btn btn-danger">
-                        <i class="bi bi-trash"></i> Delete
-                    </button>
-                    <a asp-page="./Index" class="btn btn-secondary">
-                        <i class="bi bi-arrow-left-circle"></i> Back to List
-                    </a>
-                </div>
-            </form>
-        </div>
-    </div>
+			<form method="post">
+				<input type="hidden" asp-for="UsersTuyenTM.UserTuyenTMID" />
+				<div class="d-flex justify-content-between">
+					<button type="submit" class="btn btn-danger">
+						<i class="bi bi-trash"></i> Delete
+					</button>
+					<button type="button" id="btnHubDelete" class="btn btn-primary">
+						<i class="bi bi-trash"></i> Delete By Signal Hub
+					</button>
+						(Send ID => SingalRHub => send ID to all Clients => Delete) |
+					<a asp-page="./Index" class="btn btn-secondary">
+						<i class="bi bi-arrow-left-circle"></i> Back to List
+					</a>
+				</div>
+			</form>
+		</div>
+	</div>
 </div>
+
+<script src="~/js/signalr/dist/browser/signalr.js"></script>
+<script>
+	"use strict";
+
+	var connection = new signalR.HubConnectionBuilder().withUrl("/DrugPreventionHub").build();
+
+	connection.start().then(function () {
+		console.log("Connected to the SignalR Hub");
+	}).catch(function (err) {
+		return console.error(err.toString());
+	});
+
+	document.getElementById("btnHubDelete").addEventListener("click", function (event) {
+
+		event.preventDefault();
+
+		var dataObj = document.getElementById("UsersTuyenTM_UserTuyenTMID").value;
+		console.log(dataObj);
+
+		connection.invoke("HubDelete_UserTuyenTM", dataObj).catch(function (err) {
+			return console.error(err.toString());
+		});
+	});
+
+	 connection.on("UserDeletedRedirect", function () {
+		window.location.href = "/UsersTuyenTMs/Index";
+	});
+
+</script>
+
+
+

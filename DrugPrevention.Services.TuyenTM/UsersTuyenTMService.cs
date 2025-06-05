@@ -39,7 +39,7 @@ namespace DrugPrevention.Services.TuyenTM
             var user = await _repository.GetByIdAsync(code);
             if(user != null)
             {
-                return await _repository.RemoveAsync(user);
+                return await _repository.RemoveCustomize(user);
             }
             return false;
         }

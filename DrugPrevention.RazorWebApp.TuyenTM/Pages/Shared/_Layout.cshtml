@@ -35,6 +35,11 @@
                         </li>
                     </ul>
                 </div>
+                <div class="nav-item text-nowrap">
+                    Welcome
+                    <strong>@Context.Request.Cookies["UserName"].ToString()</strong>
+                    | <a href="/Account/Logout">Sign Out</a>
+                </div>
             </div>
         </nav>
     </header>

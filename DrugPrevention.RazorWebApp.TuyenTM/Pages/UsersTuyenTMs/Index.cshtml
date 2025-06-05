@@ -28,16 +28,16 @@
                         <th>Actions</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="UserTuyenTMBodyID">
                     @foreach (var item in Model.UsersTuyenTM)
                     {
-                        <tr>
+                        <tr id="@item.UserTuyenTMID">
                             <td>@item.Username</td>
                             <td>@item.Email</td>
                             <td>@item.FirstName</td>
                             <td>@item.LastName</td>
                             <td>@item.Role</td>
-                            <td>@item.RegistrationDate.ToString("yyyy-MM-dd")</td>
+                            <td>@item.RegistrationDate.ToString("dd-MM-yyyy")</td>
                             <td>
                                 @if (item.IsActive)
                                 {
@@ -67,3 +67,21 @@
         </div>
     </div>
 </div>
+<script src="~/js/signalr/\dist/\browser/signalr.js"></script>
+<script>
+    "use strict";
+
+    var connection = new signalR.HubConnectionBuilder().withUrl("/DrugPreventionHub").build();
+
+    connection.start().then(function () {
+        console.log("Connected to the SignalR Hub");
+    }).catch(function (err) {
+        return console.error(err.toString());
+    });
+
+    connection.on("Receiver_DeleteUserTuyenTM", function (UserTuyenTMID) {
+        alert($(`#${UserTuyenTMID}`).text());
+        $('#UserTuyenTMBodyID').find(`tr[id='${UserTuyenTMID}']`).remove();
+    });
+
+</script>

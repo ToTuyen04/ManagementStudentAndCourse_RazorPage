@@ -86,7 +86,7 @@ public partial class SU25_PRN222_SE1709_G2_DrugPreventionSystemContext : DbConte
 
             entity.HasOne(d => d.Consultant).WithMany(p => p.AppointmentsNganVHHs)
                 .HasForeignKey(d => d.ConsultantID)
-                .OnDelete(DeleteBehavior.ClientSetNull)
+                .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("FK__Appointme__Consu__4F7CD00D");
         });
 
@@ -134,7 +134,7 @@ public partial class SU25_PRN222_SE1709_G2_DrugPreventionSystemContext : DbConte
 
             entity.HasOne(d => d.Consultant).WithMany(p => p.ConsultantScheduleTrongLHs)
                 .HasForeignKey(d => d.ConsultantID)
-                .OnDelete(DeleteBehavior.ClientSetNull)
+                .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("FK__Consultan__Consu__7F2BE32F");
         });
 
@@ -162,7 +162,8 @@ public partial class SU25_PRN222_SE1709_G2_DrugPreventionSystemContext : DbConte
 
             entity.HasOne(d => d.User).WithMany(p => p.ConsultantsTrongLHs)
                 .HasForeignKey(d => d.UserID)
-                .OnDelete(DeleteBehavior.ClientSetNull)
+                //.OnDelete(DeleteBehavior.ClientSetNull)
+                .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("FK__Consultan__UserI__47DBAE45");
         });
 
@@ -215,12 +216,12 @@ public partial class SU25_PRN222_SE1709_G2_DrugPreventionSystemContext : DbConte
 
             entity.HasOne(d => d.ProgramToanNS).WithMany(p => p.ProgramParticipantsToanNs)
                 .HasForeignKey(d => d.ProgramToanNSID)
-                .OnDelete(DeleteBehavior.ClientSetNull)
+                .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("FK__ProgramPa__Progr__6FE99F9F");
 
             entity.HasOne(d => d.User).WithMany(p => p.ProgramParticipantsToanNs)
                 .HasForeignKey(d => d.UserID)
-                .OnDelete(DeleteBehavior.ClientSetNull)
+                .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("FK__ProgramPa__UserI__70DDC3D8");
         });
 
@@ -245,7 +246,7 @@ public partial class SU25_PRN222_SE1709_G2_DrugPreventionSystemContext : DbConte
 
             entity.HasOne(d => d.Survey).WithMany(p => p.SurveyQuestionsQuangTNVs)
                 .HasForeignKey(d => d.SurveyID)
-                .OnDelete(DeleteBehavior.ClientSetNull)
+                .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("FK__SurveyQue__Surve__787EE5A0");
         });
 
@@ -321,12 +322,12 @@ public partial class SU25_PRN222_SE1709_G2_DrugPreventionSystemContext : DbConte
 
             entity.HasOne(d => d.Appointment).WithMany(p => p.UserAppointmentsNganVHHs)
                 .HasForeignKey(d => d.AppointmentID)
-                .OnDelete(DeleteBehavior.ClientSetNull)
+                .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("FK__UserAppoi__Appoi__693CA210");
 
             entity.HasOne(d => d.User).WithMany(p => p.UserAppointmentsNganVHHs)
                 .HasForeignKey(d => d.UserID)
-                .OnDelete(DeleteBehavior.ClientSetNull)
+                .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("FK__UserAppoi__UserI__68487DD7");
         });
 
@@ -348,12 +349,13 @@ public partial class SU25_PRN222_SE1709_G2_DrugPreventionSystemContext : DbConte
 
             entity.HasOne(d => d.Course).WithMany(p => p.UserCoursesTuyenTMs)
                 .HasForeignKey(d => d.CourseID)
-                .OnDelete(DeleteBehavior.ClientSetNull)
+                .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("FK__UserCours__Cours__5BE2A6F2");
 
             entity.HasOne(d => d.User).WithMany(p => p.UserCoursesTuyenTMs)
                 .HasForeignKey(d => d.UserID)
-                .OnDelete(DeleteBehavior.ClientSetNull)
+                //.OnDelete(DeleteBehavior.ClientSetNull)
+                .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("FK__UserCours__UserI__5AEE82B9");
         });
 
@@ -372,7 +374,7 @@ public partial class SU25_PRN222_SE1709_G2_DrugPreventionSystemContext : DbConte
 
             entity.HasOne(d => d.Survey).WithMany(p => p.UserSurveysNamNDs)
                 .HasForeignKey(d => d.SurveyID)
-                .OnDelete(DeleteBehavior.ClientSetNull)
+                .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("FK__UserSurve__Surve__6383C8BA");
 
             entity.HasOne(d => d.User).WithMany(p => p.UserSurveysNamNDs)

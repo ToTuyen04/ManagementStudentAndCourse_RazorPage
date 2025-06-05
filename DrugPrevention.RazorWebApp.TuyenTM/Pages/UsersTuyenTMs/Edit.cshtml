@@ -3,7 +3,9 @@
 
 @{
     ViewData["Title"] = "Edit";
+    var courseList = ViewData["Courses"] as List<SelectListItem>;
 }
+
 
 <h1>Edit</h1>
 
@@ -41,7 +43,14 @@
             </div>
             <div class="form-group">
                 <label asp-for="UsersTuyenTM.Role" class="control-label"></label>
-                <input asp-for="UsersTuyenTM.Role" class="form-control" />
+                <select asp-for="UsersTuyenTM.Role" class="form-control">
+                    <option>Admin</option>
+                    <option>Manager</option>
+                    <option>Consultant</option>
+                    <option>Staff</option>
+                    <option>Member</option>
+                    <option>Guest</option>
+                </select>
                 <span asp-validation-for="UsersTuyenTM.Role" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -59,10 +68,25 @@
                 <input asp-for="UsersTuyenTM.PhoneNumber" class="form-control" />
                 <span asp-validation-for="UsersTuyenTM.PhoneNumber" class="text-danger"></span>
             </div>
+            @* <div class="form-group"> *@
+            @*     <label for="SelectedCourseIds">Courses</label> *@
+            @*     <select  *@
+            @*         asp-for="SelectedCourseIds"  *@
+            @*         asp-items="Model.AllCourses"  *@
+            @*         class="form-control" *@
+            @*         size="4"></select> *@
+            @* </div> *@
+
             <div class="form-group">
                 <label for="SelectedCourseIds">Courses</label>
-                <select asp-for="SelectedCourseIds" asp-items="Model.AllCourses" class="form-control" multiple="multiple" size="4"></select>
+                <select asp-for="SelectedCourseIds"
+                        asp-items="courseList"
+                        class="form-control"
+                        multiple
+                        size="4">
+                </select>
             </div>
+
 
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />

@@ -8,9 +8,11 @@ using Microsoft.EntityFrameworkCore;
 using DrugPrevention.Repositories.TuyenTM.DBContext;
 using DrugPrevention.Repositories.TuyenTM.Models;
 using DrugPrevention.Services.TuyenTM;
+using Microsoft.AspNetCore.Authorization;
 
 namespace DrugPrevention.RazorWebApp.TuyenTM.Pages.UsersTuyenTMs
 {
+    [Authorize(Roles = "1,2")]
     public class IndexModel : PageModel
     {
         //private readonly DrugPrevention.Repositories.TuyenTM.DBContext.SU25_PRN222_SE1709_G2_DrugPreventionSystemContext _context;

@@ -8,9 +8,11 @@ using Microsoft.EntityFrameworkCore;
 using DrugPrevention.Repositories.TuyenTM.DBContext;
 using DrugPrevention.Repositories.TuyenTM.Models;
 using DrugPrevention.Services.TuyenTM;
+using Microsoft.AspNetCore.Authorization;
 
 namespace DrugPrevention.RazorWebApp.TuyenTM.Pages.UsersTuyenTMs
 {
+    [Authorize(Roles = "1")]
     public class DeleteModel : PageModel
     {
         private readonly IUsersTuyenTMService _usersTuyenTMService;

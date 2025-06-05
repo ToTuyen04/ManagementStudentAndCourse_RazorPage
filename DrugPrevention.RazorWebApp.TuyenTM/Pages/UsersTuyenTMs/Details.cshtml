@@ -47,6 +47,23 @@
                         <span class="badge bg-secondary">Inactive</span>
                     }
                 </dd>
+
+                <dt class="col-sm-3">Courses</dt>
+                <dd class="col-sm-9">
+                    @if (Model.UsersTuyenTM.UserCoursesTuyenTMs != null && Model.UsersTuyenTM.UserCoursesTuyenTMs.Any())
+                    {
+                        <ul>
+                            @foreach (var uc in Model.UsersTuyenTM.UserCoursesTuyenTMs)
+                            {
+                                <li>@uc.Course?.Title</li>
+                            }
+                        </ul>
+                    }
+                    else
+                    {
+                        <span class="text-muted">No courses assigned.</span>
+                    }
+                </dd>
             </dl>
         </div>
         <div class="card-footer text-end">
