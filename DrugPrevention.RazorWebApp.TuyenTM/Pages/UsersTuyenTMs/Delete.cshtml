@@ -12,10 +12,11 @@
 		("First Name", Model.UsersTuyenTM?.FirstName),
 		("Last Name", Model.UsersTuyenTM?.LastName),
 		("Role", Model.UsersTuyenTM?.Role),
-		("Registration Date", Model.UsersTuyenTM?.RegistrationDate.ToString("yyyy-MM-dd")),
+		// ("Registration Date", Model.UsersTuyenTM?.RegistrationDate.ToString("HH:mm dd-MM-yyyy")),
+		("Registration Date", Model.UsersTuyenTM?.RegistrationDate),
 		("Active", Model.UsersTuyenTM?.IsActive == true ? "Yes" : "No"),
 		("Phone Number", Model.UsersTuyenTM?.PhoneNumber),
-		("Course Name", Model.UsersTuyenTM.UserCoursesTuyenTMs)
+		// ("Course Name", Model.UsersTuyenTM.UserCoursesTuyenTMs)
 	};
 }
 
@@ -36,14 +37,30 @@
 
 				@if (Model.UsersTuyenTM?.UserCoursesTuyenTMs?.Any() == true)
 				{
+					@* <dt class="col-sm-3">Courses</dt> *@
+					@* <dd class="col-sm-9"> *@
+					@* 	<ul class="mb-0"> *@
+					@* 		@foreach (var course in Model.UsersTuyenTM.UserCoursesTuyenTMs) *@
+					@* 		{ *@
+					@* 			<li>@course.Course?.Title</li> *@
+					@* 		} *@
+					@* 	</ul> *@
+					@* </dd> *@
 					<dt class="col-sm-3">Courses</dt>
 					<dd class="col-sm-9">
-						<ul class="mb-0">
-							@foreach (var course in Model.UsersTuyenTM.UserCoursesTuyenTMs)
-							{
-								<li>@course.Course?.Title</li>
-							}
-						</ul>
+						@if (Model.UsersTuyenTM.UserCoursesTuyenTMs != null && Model.UsersTuyenTM.UserCoursesTuyenTMs.Any())
+						{
+							<ul>
+								@foreach (var uc in Model.UsersTuyenTM.UserCoursesTuyenTMs)
+								{
+									<li>@uc.Course?.Title</li>
+								}
+							</ul>
+						}
+						else
+						{
+							<span class="text-muted">No courses assigned.</span>
+						}
 					</dd>
 				}
 			</dl>

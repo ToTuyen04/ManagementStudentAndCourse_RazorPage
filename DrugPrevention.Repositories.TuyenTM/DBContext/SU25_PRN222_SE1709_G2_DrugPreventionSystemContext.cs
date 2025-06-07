@@ -29,6 +29,10 @@ public partial class SU25_PRN222_SE1709_G2_DrugPreventionSystemContext : DbConte
 
     public virtual DbSet<CoursesQuangTNV> CoursesQuangTNVs { get; set; }
 
+    public virtual DbSet<OrganizationProgramsTuyenTM> OrganizationProgramsTuyenTMs { get; set; }
+
+    public virtual DbSet<OrganizationsTuyenTM> OrganizationsTuyenTMs { get; set; }
+
     public virtual DbSet<ProgramParticipantsToanN> ProgramParticipantsToanNs { get; set; }
 
     public virtual DbSet<SurveyQuestionsQuangTNV> SurveyQuestionsQuangTNVs { get; set; }
@@ -44,6 +48,7 @@ public partial class SU25_PRN222_SE1709_G2_DrugPreventionSystemContext : DbConte
     public virtual DbSet<UserSurveysNamND> UserSurveysNamNDs { get; set; }
 
     public virtual DbSet<UsersTuyenTM> UsersTuyenTMs { get; set; }
+
     public static string GetConnectionString(string connectionStringName)
     {
         var config = new ConfigurationBuilder()
@@ -57,9 +62,6 @@ public partial class SU25_PRN222_SE1709_G2_DrugPreventionSystemContext : DbConte
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         => optionsBuilder.UseSqlServer(GetConnectionString("DefaultConnection")).UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
-    //    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    //#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-    //        => optionsBuilder.UseSqlServer("Data Source=TuyenDepZai;Initial Catalog=SU25_PRN222_SE1709_G2_DrugPreventionSystem;Persist Security Info=True;User ID=sa;Password=12345;Encrypt=False");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -83,11 +85,6 @@ public partial class SU25_PRN222_SE1709_G2_DrugPreventionSystemContext : DbConte
             entity.Property(e => e.Status)
                 .IsRequired()
                 .HasMaxLength(20);
-
-            entity.HasOne(d => d.Consultant).WithMany(p => p.AppointmentsNganVHHs)
-                .HasForeignKey(d => d.ConsultantID)
-                .OnDelete(DeleteBehavior.Cascade)
-                .HasConstraintName("FK__Appointme__Consu__4F7CD00D");
         });
 
         modelBuilder.Entity<CommunityProgramsToanN>(entity =>
@@ -134,7 +131,7 @@ public partial class SU25_PRN222_SE1709_G2_DrugPreventionSystemContext : DbConte
 
             entity.HasOne(d => d.Consultant).WithMany(p => p.ConsultantScheduleTrongLHs)
                 .HasForeignKey(d => d.ConsultantID)
-                .OnDelete(DeleteBehavior.Cascade)
+                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK__Consultan__Consu__7F2BE32F");
         });
 
@@ -162,8 +159,7 @@ public partial class SU25_PRN222_SE1709_G2_DrugPreventionSystemContext : DbConte
 
             entity.HasOne(d => d.User).WithMany(p => p.ConsultantsTrongLHs)
                 .HasForeignKey(d => d.UserID)
-                //.OnDelete(DeleteBehavior.ClientSetNull)
-                .OnDelete(DeleteBehavior.Cascade)
+                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK__Consultan__UserI__47DBAE45");
         });
 
@@ -199,6 +195,53 @@ public partial class SU25_PRN222_SE1709_G2_DrugPreventionSystemContext : DbConte
                 .HasMaxLength(100);
         });
 
+        modelBuilder.Entity<OrganizationProgramsTuyenTM>(entity =>
+        {
+            entity.HasKey(e => e.OrganizationProgramTuyenTMID).HasName("PK__Organiza__9C1847E4907390C5");
+
+            entity.ToTable("OrganizationProgramsTuyenTM");
+
+            entity.Property(e => e.ContributionDescription).HasColumnType("ntext");
+            entity.Property(e => e.IsOrganizer).HasDefaultValue(false);
+            entity.Property(e => e.IsSponsor).HasDefaultValue(false);
+            entity.Property(e => e.JoinedDate)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime");
+
+            entity.HasOne(d => d.Organization).WithMany(p => p.OrganizationProgramsTuyenTMs)
+                .HasForeignKey(d => d.OrganizationID)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__Organizat__Organ__41EDCAC5");
+
+            entity.HasOne(d => d.ProgramToanNS).WithMany(p => p.OrganizationProgramsTuyenTMs)
+                .HasForeignKey(d => d.ProgramToanNSID)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__Organizat__Progr__42E1EEFE");
+        });
+
+        modelBuilder.Entity<OrganizationsTuyenTM>(entity =>
+        {
+            entity.HasKey(e => e.OrganizationTuyenTMID).HasName("PK__Organiza__123C3A5789485B5E");
+
+            entity.ToTable("OrganizationsTuyenTM");
+
+            entity.Property(e => e.Address).HasMaxLength(255);
+            entity.Property(e => e.ContactEmail).HasMaxLength(100);
+            entity.Property(e => e.ContactPhone).HasMaxLength(20);
+            entity.Property(e => e.CreatedDate)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime");
+            entity.Property(e => e.IsActive).HasDefaultValue(true);
+            entity.Property(e => e.IsPartner).HasDefaultValue(false);
+            entity.Property(e => e.OrganizationName)
+                .IsRequired()
+                .HasMaxLength(100);
+            entity.Property(e => e.Type)
+                .IsRequired()
+                .HasMaxLength(50);
+            entity.Property(e => e.Website).HasMaxLength(255);
+        });
+
         modelBuilder.Entity<ProgramParticipantsToanN>(entity =>
         {
             entity.HasKey(e => e.ParticipantToanNSID).HasName("PK__ProgramP__C3891D6C84EC855B");
@@ -216,12 +259,12 @@ public partial class SU25_PRN222_SE1709_G2_DrugPreventionSystemContext : DbConte
 
             entity.HasOne(d => d.ProgramToanNS).WithMany(p => p.ProgramParticipantsToanNs)
                 .HasForeignKey(d => d.ProgramToanNSID)
-                .OnDelete(DeleteBehavior.Cascade)
+                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK__ProgramPa__Progr__6FE99F9F");
 
             entity.HasOne(d => d.User).WithMany(p => p.ProgramParticipantsToanNs)
                 .HasForeignKey(d => d.UserID)
-                .OnDelete(DeleteBehavior.Cascade)
+                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK__ProgramPa__UserI__70DDC3D8");
         });
 
@@ -246,7 +289,7 @@ public partial class SU25_PRN222_SE1709_G2_DrugPreventionSystemContext : DbConte
 
             entity.HasOne(d => d.Survey).WithMany(p => p.SurveyQuestionsQuangTNVs)
                 .HasForeignKey(d => d.SurveyID)
-                .OnDelete(DeleteBehavior.Cascade)
+                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK__SurveyQue__Surve__787EE5A0");
         });
 
@@ -322,13 +365,8 @@ public partial class SU25_PRN222_SE1709_G2_DrugPreventionSystemContext : DbConte
 
             entity.HasOne(d => d.Appointment).WithMany(p => p.UserAppointmentsNganVHHs)
                 .HasForeignKey(d => d.AppointmentID)
-                .OnDelete(DeleteBehavior.Cascade)
+                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK__UserAppoi__Appoi__693CA210");
-
-            entity.HasOne(d => d.User).WithMany(p => p.UserAppointmentsNganVHHs)
-                .HasForeignKey(d => d.UserID)
-                .OnDelete(DeleteBehavior.Cascade)
-                .HasConstraintName("FK__UserAppoi__UserI__68487DD7");
         });
 
         modelBuilder.Entity<UserCoursesTuyenTM>(entity =>
@@ -349,13 +387,12 @@ public partial class SU25_PRN222_SE1709_G2_DrugPreventionSystemContext : DbConte
 
             entity.HasOne(d => d.Course).WithMany(p => p.UserCoursesTuyenTMs)
                 .HasForeignKey(d => d.CourseID)
-                .OnDelete(DeleteBehavior.Cascade)
+                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK__UserCours__Cours__5BE2A6F2");
 
             entity.HasOne(d => d.User).WithMany(p => p.UserCoursesTuyenTMs)
                 .HasForeignKey(d => d.UserID)
-                //.OnDelete(DeleteBehavior.ClientSetNull)
-                .OnDelete(DeleteBehavior.Cascade)
+                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK__UserCours__UserI__5AEE82B9");
         });
 
@@ -374,7 +411,7 @@ public partial class SU25_PRN222_SE1709_G2_DrugPreventionSystemContext : DbConte
 
             entity.HasOne(d => d.Survey).WithMany(p => p.UserSurveysNamNDs)
                 .HasForeignKey(d => d.SurveyID)
-                .OnDelete(DeleteBehavior.Cascade)
+                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK__UserSurve__Surve__6383C8BA");
 
             entity.HasOne(d => d.User).WithMany(p => p.UserSurveysNamNDs)
@@ -391,10 +428,6 @@ public partial class SU25_PRN222_SE1709_G2_DrugPreventionSystemContext : DbConte
             entity.HasIndex(e => e.IsActive, "IDX_UsersTuyenTM_IsActive");
 
             entity.HasIndex(e => e.Role, "IDX_UsersTuyenTM_Role");
-
-            entity.HasIndex(e => e.Username, "UQ__UsersTuy__536C85E41C1F5E23").IsUnique();
-
-            entity.HasIndex(e => e.Email, "UQ__UsersTuy__A9D105341E553D14").IsUnique();
 
             entity.Property(e => e.Email)
                 .IsRequired()

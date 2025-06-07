@@ -8,70 +8,14 @@
    "OutputContextPath": null,
    "OutputPath": "Models",
    "PreserveCasingWithRegex": true,
-   "ProjectRootNamespace": "DrugPrevention.Repositories.TuyenTM",
+   "ProjectRootNamespace": "DrugPrevention.RazorWebApp.TuyenTM",
    "Schemas": null,
    "SelectedHandlebarsLanguage": 2,
    "SelectedToBeGenerated": 0,
    "T4TemplatePath": null,
    "Tables": [
       {
-         "Name": "[dbo].[AppointmentsNganVHH]",
-         "ObjectType": 0
-      },
-      {
-         "Name": "[dbo].[CommunityProgramsToanNS]",
-         "ObjectType": 0
-      },
-      {
-         "Name": "[dbo].[ConsultantScheduleTrongLH]",
-         "ObjectType": 0
-      },
-      {
-         "Name": "[dbo].[ConsultantsTrongLH]",
-         "ObjectType": 0
-      },
-      {
-         "Name": "[dbo].[CoursesQuangTNV]",
-         "ObjectType": 0
-      },
-      {
-         "Name": "[dbo].[OrganizationProgramsTuyenTM]",
-         "ObjectType": 0
-      },
-      {
          "Name": "[dbo].[OrganizationsTuyenTM]",
-         "ObjectType": 0
-      },
-      {
-         "Name": "[dbo].[ProgramParticipantsToanNS]",
-         "ObjectType": 0
-      },
-      {
-         "Name": "[dbo].[SurveyQuestionsQuangTNV]",
-         "ObjectType": 0
-      },
-      {
-         "Name": "[dbo].[SurveysNamND]",
-         "ObjectType": 0
-      },
-      {
-         "Name": "[dbo].[System.UserAccount]",
-         "ObjectType": 0
-      },
-      {
-         "Name": "[dbo].[UserAppointmentsNganVHH]",
-         "ObjectType": 0
-      },
-      {
-         "Name": "[dbo].[UserCoursesTuyenTM]",
-         "ObjectType": 0
-      },
-      {
-         "Name": "[dbo].[UsersTuyenTM]",
-         "ObjectType": 0
-      },
-      {
-         "Name": "[dbo].[UserSurveysNamND]",
          "ObjectType": 0
       }
    ],

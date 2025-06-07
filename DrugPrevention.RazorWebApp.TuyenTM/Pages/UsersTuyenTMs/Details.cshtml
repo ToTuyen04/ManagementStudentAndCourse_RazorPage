@@ -13,7 +13,7 @@
                 <i class="bi bi-arrow-left"></i> Back to List
             </a>
         </div>
-        <div class="card-body">
+        <div class="card-body" id="UserTuyenTMID">
             <dl class="row">
                 <dt class="col-sm-3">Username</dt>
                 <dd class="col-sm-9">@Model.UsersTuyenTM.Username</dd>
@@ -34,7 +34,7 @@
                 <dd class="col-sm-9">@Model.UsersTuyenTM.PhoneNumber</dd>
 
                 <dt class="col-sm-3">Registration Date</dt>
-                <dd class="col-sm-9">@Model.UsersTuyenTM.RegistrationDate.ToString("yyyy-MM-dd")</dd>
+                <dd class="col-sm-9">@Model.UsersTuyenTM.RegistrationDate.ToString("dd-MM-yyyy")</dd>
 
                 <dt class="col-sm-3">Status</dt>
                 <dd class="col-sm-9">
@@ -76,3 +76,23 @@
         </div>
     </div>
 </div>
+
+<script src="~/js/signalr/dist/browser/signalr.js" ></script>
+<script>
+    "use strict";
+
+    var connection = new signalR.HubConnectionBuilder().withUrl("/DrugPreventionHub").build();
+
+    connection.start().then(function () {
+        console.log("Connected to the SignalR Hub");
+    }).catch(function (err) {
+        return console.error(err.toString());
+    });
+
+    connection.on("Receiver_DeleteUserTuyenTM", function (UserTuyenTMID) {
+        // alert($(`#${UserTuyenTMID}`).text());
+        // $('#UserTuyenTMBodyID').find(`tr[id='${UserTuyenTMID}']`).remove();
+		document.getElementById("UserTuyenTMID").innerHTML = "This item had deleted";
+    });
+
+</script>

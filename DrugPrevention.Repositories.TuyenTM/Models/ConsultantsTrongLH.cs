@@ -27,8 +27,6 @@ public partial class ConsultantsTrongLH
 
     public bool? ProfileVerified { get; set; }
 
-    public virtual ICollection<AppointmentsNganVHH> AppointmentsNganVHHs { get; set; } = new List<AppointmentsNganVHH>();
-
     public virtual ICollection<ConsultantScheduleTrongLH> ConsultantScheduleTrongLHs { get; set; } = new List<ConsultantScheduleTrongLH>();
 
     public virtual UsersTuyenTM User { get; set; }

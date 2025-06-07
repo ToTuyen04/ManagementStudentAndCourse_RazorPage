@@ -31,9 +31,6 @@ namespace DrugPrevention.Repositories.TuyenTM
                 .Include(u => u.ProgramParticipantsToanNs)
                 .Include(u => u.CommunityProgramsToanNs)
                 .Include(u => u.UserSurveysNamNDs)
-                .Include(u => u.UserAppointmentsNganVHHs)
-                .ThenInclude(ua => ua.Appointment)
-                .ThenInclude(a => a.Consultant)
   
                 .FirstOrDefaultAsync(u => u.UserTuyenTMID == code);
 
@@ -55,7 +52,6 @@ namespace DrugPrevention.Repositories.TuyenTM
             _context.UserCoursesTuyenTMs.RemoveRange(entity.UserCoursesTuyenTMs);
             _context.ConsultantsTrongLHs.RemoveRange(entity.ConsultantsTrongLHs);
             _context.ProgramParticipantsToanNs.RemoveRange(entity.ProgramParticipantsToanNs);
-            _context.UserAppointmentsNganVHHs.RemoveRange(entity.UserAppointmentsNganVHHs);
             _context.UsersTuyenTMs.Remove(entity);
 
             return await _context.SaveChangesAsync() > 0;

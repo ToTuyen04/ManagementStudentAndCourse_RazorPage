@@ -58,6 +58,9 @@
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
+            <div>
+                <input type="button" id="btnHubCreate" value="Create by SignalRHub" class="btn btn-primary" />
+            </div>
         </form>
     </div>
 </div>
@@ -69,3 +72,42 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
+
+<script src="~/js/signalr/dist/browser/signalr.js"></script>
+<script>
+    "use strict";
+
+    var connection = new signalR.HubConnectionBuilder().withUrl("/DrugPreventionHub").build();
+
+    connection.start().then(function () {
+        console.log("Connected to the SignalR Hub");
+    }).catch(function (err) {
+        return console.error(err.toString());
+    });
+
+    document.getElementById("btnHubCreate").addEventListener("click", function (event) {
+    
+    var dataObj = JSON.stringify({
+                
+            //int tự tăng thì để null
+            // UserTuyenTMID: document.getElementById("UsersTuyenTM_UserTuyenTMID").value,
+            Username: document.getElementById("UsersTuyenTM_Username").value,
+            Email: document.getElementById("UsersTuyenTM_Email").value,
+            FirstName: document.getElementById("UsersTuyenTM_FirstName").value,
+            LastName: document.getElementById("UsersTuyenTM_LastName").value,
+            Role: document.getElementById("UsersTuyenTM_Role").value,
+            RegistrationDate: document.getElementById("UsersTuyenTM_RegistrationDate").value,
+            // IsActive: document.getElementById("UsersTuyenTM_IsActive").value
+            // PhoneNumber: document.getElementById("UsersTuyenTM_PhoneNumber").value
+
+        });
+
+        console.log(dataObj);
+
+        connection.invoke("HubCreate_UserTuyenTM", dataObj).catch(function (err) {
+            return console.error(err.toString());
+        });
+        event.preventDefault();
+          });
+</script>
+

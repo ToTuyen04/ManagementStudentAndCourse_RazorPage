@@ -1,6 +1,8 @@
-﻿using DrugPrevention.Services.TuyenTM;
+﻿using DrugPrevention.Repositories.TuyenTM.Models;
+using DrugPrevention.Services.TuyenTM;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
+using Newtonsoft.Json;
 
 namespace DrugPrevention.RazorWebApp.TuyenTM.Hubs
 {
@@ -11,6 +13,19 @@ namespace DrugPrevention.RazorWebApp.TuyenTM.Hubs
         {
             _usersTuyenTMService = usersTuyenTMService;
         }
+
+        //Create
+        public async Task HubCreate_UserTuyenTM(string usersTuyenTMJsonString)
+        {
+         
+            var item = JsonConvert.DeserializeObject<UsersTuyenTM>(usersTuyenTMJsonString);
+
+            await Clients.All.SendAsync("Receiver_CreateUserTuyenTM", item);
+
+            await _usersTuyenTMService.CreateAsync(item);
+        }
+
+        //Delete
         public async Task HubDelete_UserTuyenTM(string userTuyenTMID)
         {
             // Hub sẽ gửi lệnh xóa người dùng đến tất cả các client đang kết nối

@@ -33,8 +33,6 @@ public partial class UsersTuyenTM
 
     public virtual ICollection<ProgramParticipantsToanN> ProgramParticipantsToanNs { get; set; } = new List<ProgramParticipantsToanN>();
 
-    public virtual ICollection<UserAppointmentsNganVHH> UserAppointmentsNganVHHs { get; set; } = new List<UserAppointmentsNganVHH>();
-
     public virtual ICollection<UserCoursesTuyenTM> UserCoursesTuyenTMs { get; set; } = new List<UserCoursesTuyenTM>();
 
     public virtual ICollection<UserSurveysNamND> UserSurveysNamNDs { get; set; } = new List<UserSurveysNamND>();

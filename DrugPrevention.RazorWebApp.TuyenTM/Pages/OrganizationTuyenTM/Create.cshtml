@@ -1,0 +1,53 @@
+﻿@page
+@model DrugPrevention.RazorWebApp.TuyenTM.Pages.OrganizationTuyenTM.CreateModel
+
+<h4>OrganizationsTuyenTM</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="OrganizationsTuyenTM.OrganizationName" class="control-label"></label>
+                <input asp-for="OrganizationsTuyenTM.OrganizationName" class="form-control" />
+                <span asp-validation-for="OrganizationsTuyenTM.OrganizationName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="OrganizationsTuyenTM.Type" class="control-label"></label>
+                <input asp-for="OrganizationsTuyenTM.Type" class="form-control" />
+                <span asp-validation-for="OrganizationsTuyenTM.Type" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="OrganizationsTuyenTM.Address" class="control-label"></label>
+                <input asp-for="OrganizationsTuyenTM.Address" class="form-control" />
+                <span asp-validation-for="OrganizationsTuyenTM.Address" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="OrganizationsTuyenTM.ContactEmail" class="control-label"></label>
+                <input asp-for="OrganizationsTuyenTM.ContactEmail" class="form-control" />
+                <span asp-validation-for="OrganizationsTuyenTM.ContactEmail" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="OrganizationsTuyenTM.ContactPhone" class="control-label"></label>
+                <input asp-for="OrganizationsTuyenTM.ContactPhone" class="form-control" />
+                <span asp-validation-for="OrganizationsTuyenTM.ContactPhone" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="OrganizationsTuyenTM.Website" class="control-label"></label>
+                <input asp-for="OrganizationsTuyenTM.Website" class="form-control" />
+                <span asp-validation-for="OrganizationsTuyenTM.Website" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

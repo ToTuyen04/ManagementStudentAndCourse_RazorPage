@@ -28,6 +28,4 @@ public partial class UserAppointmentsNganVHH
     public string FollowUpNotes { get; set; }
 
     public virtual AppointmentsNganVHH Appointment { get; set; }
-
-    public virtual UsersTuyenTM User { get; set; }
 }

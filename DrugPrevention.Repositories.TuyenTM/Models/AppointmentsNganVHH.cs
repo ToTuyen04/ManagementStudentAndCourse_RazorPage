@@ -27,7 +27,5 @@ public partial class AppointmentsNganVHH
 
     public DateTime CreatedDate { get; set; }
 
-    public virtual ConsultantsTrongLH Consultant { get; set; }
-
     public virtual ICollection<UserAppointmentsNganVHH> UserAppointmentsNganVHHs { get; set; } = new List<UserAppointmentsNganVHH>();
 }

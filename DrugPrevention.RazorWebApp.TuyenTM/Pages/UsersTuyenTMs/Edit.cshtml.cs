@@ -50,12 +50,6 @@ namespace DrugPrevention.RazorWebApp.TuyenTM.Pages.UsersTuyenTMs
             var courses = await _coursesQuangTNVService.GetAllAsync();
 
             // Đánh dấu các khóa học đã chọn
-            //AllCourses = courses.Select(c => new SelectListItem
-            //{
-            //    Value = c.CourseQuangTNVID.ToString(),
-            //    Text = c.Title,
-            //    Selected = SelectedCourseIds.Contains(c.CourseQuangTNVID)
-            //}).ToList();
             ViewData["Courses"] = courses.Select(c => new SelectListItem
             {
                 Value = c.CourseQuangTNVID.ToString(),
@@ -95,7 +89,7 @@ namespace DrugPrevention.RazorWebApp.TuyenTM.Pages.UsersTuyenTMs
             userToUpdate.FirstName = UsersTuyenTM.FirstName;
             userToUpdate.LastName = UsersTuyenTM.LastName;
             userToUpdate.Role = UsersTuyenTM.Role;
-            userToUpdate.RegistrationDate = UsersTuyenTM.RegistrationDate;
+            //userToUpdate.RegistrationDate = UsersTuyenTM.RegistrationDate;
             userToUpdate.IsActive = UsersTuyenTM.IsActive;
             userToUpdate.PhoneNumber = UsersTuyenTM.PhoneNumber;
 

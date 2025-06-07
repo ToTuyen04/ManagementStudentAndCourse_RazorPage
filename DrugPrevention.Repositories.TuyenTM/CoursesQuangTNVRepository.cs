@@ -18,7 +18,7 @@ namespace DrugPrevention.Repositories.TuyenTM
         public async Task<List<CoursesQuangTNV>> GetAllAsync()
         {
             var courseList = await _context.CoursesQuangTNVs.ToListAsync();
-            return courseList ?? new List<CoursesQuangTNV>();
+            return courseList;
         }
 
         public async Task<CoursesQuangTNV> GetByIdAsync(int code)

@@ -79,9 +79,45 @@
         return console.error(err.toString());
     });
 
+    //Delete
     connection.on("Receiver_DeleteUserTuyenTM", function (UserTuyenTMID) {
         alert($(`#${UserTuyenTMID}`).text());
         $('#UserTuyenTMBodyID').find(`tr[id='${UserTuyenTMID}']`).remove();
+    });
+
+    //Create
+        connection.on("Receiver_CreateUserTuyenTM", function (item) {
+        //alert('Receiver_CreateTransactionCashDepositSlip');
+        console.log(item);
+        var trTransactionCashDepositSlip = `
+                <tr>
+                    
+                    <td>${item.username}</td>
+                    <td>${item.email}</td>
+                    <td>${item.firstName}</td>
+                    <td>${item.lastName}</td>
+                    <td>${item.role}</td>
+                    <td>${item.registrationDate}</td>
+                    <td>
+                        <span class="badge bg-secondary">Inactive</span>    
+                    </td>
+                    <td>
+                        <a class="btn btn-sm btn-outline-primary me-1" asp-page="./Edit" asp-route-id="${item.UserTuyenTMID}">
+                            <i class="bi bi-pencil"></i> Edit
+                        </a>
+                        <a class="btn btn-sm btn-outline-info me-1" asp-page="./Details" asp-route-id="${item.UserTuyenTMID}">
+                            <i class="bi bi-eye"></i> Details
+                        </a>
+                        <a class="btn btn-sm btn-outline-danger" asp-page="./Delete" asp-route-id="${item.UserTuyenTMID}">
+                            <i class="bi bi-trash"></i> Delete
+                        </a>
+                    </td>
+                </tr>
+            `;
+
+        alert(trTransactionCashDepositSlip);
+
+        $('#UserTuyenTMBodyID').append(trTransactionCashDepositSlip)
     });
 
 </script>

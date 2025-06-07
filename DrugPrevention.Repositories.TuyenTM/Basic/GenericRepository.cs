@@ -1,4 +1,5 @@
 ﻿using DrugPrevention.Repositories.TuyenTM.DBContext;
+using DrugPrevention.Repositories.TuyenTM.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;

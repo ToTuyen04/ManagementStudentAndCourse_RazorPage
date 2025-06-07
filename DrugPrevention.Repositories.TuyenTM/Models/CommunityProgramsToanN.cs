@@ -27,6 +27,8 @@ public partial class CommunityProgramsToanN
 
     public bool? IsActive { get; set; }
 
+    public virtual ICollection<OrganizationProgramsTuyenTM> OrganizationProgramsTuyenTMs { get; set; } = new List<OrganizationProgramsTuyenTM>();
+
     public virtual UsersTuyenTM Organizer { get; set; }
 
     public virtual ICollection<ProgramParticipantsToanN> ProgramParticipantsToanNs { get; set; } = new List<ProgramParticipantsToanN>();
