@@ -16,13 +16,16 @@ namespace DrugPrevention.RazorWebApp.TuyenTM.Pages.OrganizationProgramTuyenTM
     {
         private readonly IOrganizationProgramsTuyenTMService _organizationProgramsTuyenTMService;
         private readonly IOrganizationsTuyenTMService _organizationsTuyenTMService;
-
+        private readonly ICommunityProgramToanNSService _communityProgramToanNS;
         public EditModel(
             IOrganizationProgramsTuyenTMService organizationProgramsTuyenTMService,
-            IOrganizationsTuyenTMService organizationsTuyenTMService)
+            IOrganizationsTuyenTMService organizationsTuyenTMService,
+            ICommunityProgramToanNSService communityProgramToanNS)
+
         {
             _organizationProgramsTuyenTMService = organizationProgramsTuyenTMService;
             _organizationsTuyenTMService = organizationsTuyenTMService;
+            _communityProgramToanNS = communityProgramToanNS;
         }
 
         [BindProperty]
@@ -35,15 +38,16 @@ namespace DrugPrevention.RazorWebApp.TuyenTM.Pages.OrganizationProgramTuyenTM
                 return NotFound();
             }
 
-            var organizationprogramstuyentm =  await _organizationProgramsTuyenTMService.GetByIdAsync(id.Value);
+            var organizationprogramstuyentm = await _organizationProgramsTuyenTMService.GetByIdAsync(id.Value);
             if (organizationprogramstuyentm == null)
             {
                 return NotFound();
             }
             OrganizationProgramsTuyenTM = organizationprogramstuyentm;
             var organizations = await _organizationsTuyenTMService.GetAllAsync();
+            var communityPrograms = await _communityProgramToanNS.GetAllAsync();
             ViewData["OrganizationID"] = new SelectList(organizations, "OrganizationTuyenTMID", "OrganizationName");
-           //ViewData["ProgramToanNSID"] = new SelectList(_context.CommunityProgramsToanNs, "ProgramToanNSID", "ProgramName");
+            ViewData["ProgramToanNSID"] = new SelectList(communityPrograms, "ProgramToanNSID", "ProgramName");
             return Page();
         }
 

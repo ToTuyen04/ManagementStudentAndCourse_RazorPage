@@ -19,7 +19,7 @@ namespace DrugPrevention.RazorWebApp.TuyenTM.Pages.OrganizationProgramTuyenTM
             _organizationProgramsTuyenTMService = organizationProgramsTuyenTMService;
         }
 
-        public IList<OrganizationProgramsTuyenTM> OrganizationProgramsTuyenTM { get;set; } = default!;
+        public IList<OrganizationProgramsTuyenTM> OrganizationProgramsTuyenTM { get; set; } = default!;
 
         public async Task OnGetAsync()
         {

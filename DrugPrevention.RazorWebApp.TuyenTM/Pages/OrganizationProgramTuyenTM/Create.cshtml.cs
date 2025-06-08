@@ -15,18 +15,21 @@ namespace DrugPrevention.RazorWebApp.TuyenTM.Pages.OrganizationProgramTuyenTM
     {
         private readonly IOrganizationProgramsTuyenTMService _organizationProgramsTuyenTMService;
         private readonly IOrganizationsTuyenTMService _organizationsTuyenTMService;
+        private readonly ICommunityProgramToanNSService _communityProgramToanNSService;
 
-        public CreateModel(IOrganizationProgramsTuyenTMService organizationProgramsTuyenTMService, IOrganizationsTuyenTMService organizationsTuyenTMService)
+        public CreateModel(IOrganizationProgramsTuyenTMService organizationProgramsTuyenTMService, IOrganizationsTuyenTMService organizationsTuyenTMService, ICommunityProgramToanNSService communityProgramToanNSService)
         {
             _organizationProgramsTuyenTMService = organizationProgramsTuyenTMService;
             _organizationsTuyenTMService = organizationsTuyenTMService;
+            _communityProgramToanNSService = communityProgramToanNSService;
         }
 
         public async Task<IActionResult> OnGet()
         {
             var organizations = await _organizationsTuyenTMService.GetAllAsync();
+            var communityProgram = await _communityProgramToanNSService.GetAllAsync();
             ViewData["OrganizationID"] = new SelectList(organizations, "OrganizationTuyenTMID", "OrganizationName");
-        //ViewData["ProgramToanNSID"] = new SelectList(_context.CommunityProgramsToanNs, "ProgramToanNSID", "ProgramName");
+        ViewData["ProgramToanNSID"] = new SelectList(communityProgram, "ProgramToanNSID", "ProgramName");
             return Page();
         }
 

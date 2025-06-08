@@ -16,6 +16,7 @@ namespace DrugPrevention.RazorWebApp.TuyenTM
             builder.Services.AddScoped<ICoursesQuangTNVService, CoursesQuangTNVService>();
             builder.Services.AddScoped<IOrganizationsTuyenTMService, OrganizationsTuyenTMService>();
             builder.Services.AddScoped<IOrganizationProgramsTuyenTMService, OrganizationProgramsTuyenTMService>();
+            builder.Services.AddScoped<ICommunityProgramToanNSService, CommunityProgramToanNSService>();
 
             //Add Authentication & Authorization
             builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)

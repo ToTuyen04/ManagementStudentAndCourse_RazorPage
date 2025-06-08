@@ -27,6 +27,7 @@ namespace DrugPrevention.Repositories.TuyenTM
         {
             var program = await _context.OrganizationProgramsTuyenTMs
                 .Include(p => p.Organization)
+                .Include(p => p.ProgramToanNS)
                 .FirstOrDefaultAsync(p => p.OrganizationProgramTuyenTMID == id);
             return program ?? new OrganizationProgramsTuyenTM();
         }

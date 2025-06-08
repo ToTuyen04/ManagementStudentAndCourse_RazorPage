@@ -21,6 +21,14 @@ public partial class OrganizationProgramsTuyenTM
 
     public bool? IsOrganizer { get; set; }
 
+    public string ProgramRole { get; set; }
+
+    public decimal? FundingAmount { get; set; }
+
+    public string Feedback { get; set; }
+
+    public DateTime? LastUpdated { get; set; }
+
     public virtual OrganizationsTuyenTM Organization { get; set; }
 
     public virtual CommunityProgramsToanN ProgramToanNS { get; set; }

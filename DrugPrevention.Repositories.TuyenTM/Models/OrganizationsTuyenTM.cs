@@ -8,7 +8,7 @@ namespace DrugPrevention.Repositories.TuyenTM.Models;
 public partial class OrganizationsTuyenTM
 {
     public int OrganizationTuyenTMID { get; set; }
-    
+
     public string OrganizationName { get; set; }
 
     public string Type { get; set; }

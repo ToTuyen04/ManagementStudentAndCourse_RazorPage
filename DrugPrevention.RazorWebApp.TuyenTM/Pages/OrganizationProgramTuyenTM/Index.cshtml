@@ -1,60 +1,81 @@
 ﻿@page
 @model DrugPrevention.RazorWebApp.TuyenTM.Pages.OrganizationProgramTuyenTM.IndexModel
 
-<p>
-    <a asp-page="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.OrganizationProgramsTuyenTM[0].JoinedDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.OrganizationProgramsTuyenTM[0].ContributionDescription)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.OrganizationProgramsTuyenTM[0].IsSponsor)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.OrganizationProgramsTuyenTM[0].IsOrganizer)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.OrganizationProgramsTuyenTM[0].Organization)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.OrganizationProgramsTuyenTM[0].ProgramToanNS)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model.OrganizationProgramsTuyenTM) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.JoinedDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ContributionDescription)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsSponsor)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsOrganizer)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Organization.OrganizationName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ProgramToanNS.ProgramName)
-            </td>
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.OrganizationProgramTuyenTMID">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.OrganizationProgramTuyenTMID">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.OrganizationProgramTuyenTMID">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2 class="mb-0">Organization Program List</h2>
+        <a asp-page="Create" class="btn btn-primary">+ Create New</a>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-striped table-bordered table-hover align-middle text-center">
+            <thead class="table-dark">
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.OrganizationProgramsTuyenTM[0].JoinedDate)</th>
+                    <th>@Html.DisplayNameFor(model => model.OrganizationProgramsTuyenTM[0].ContributionDescription)</th>
+                    <th>@Html.DisplayNameFor(model => model.OrganizationProgramsTuyenTM[0].IsSponsor)</th>
+                    <th>@Html.DisplayNameFor(model => model.OrganizationProgramsTuyenTM[0].IsOrganizer)</th>
+                    <th>@Html.DisplayNameFor(model => model.OrganizationProgramsTuyenTM[0].ProgramRole)</th>
+                    <th>@Html.DisplayNameFor(model => model.OrganizationProgramsTuyenTM[0].FundingAmount)</th>
+                    <th>@Html.DisplayNameFor(model => model.OrganizationProgramsTuyenTM[0].Feedback)</th>
+                    <th>@Html.DisplayNameFor(model => model.OrganizationProgramsTuyenTM[0].LastUpdated)</th>
+                    <th>@Html.DisplayNameFor(model => model.OrganizationProgramsTuyenTM[0].Organization)</th>
+                    <th>@Html.DisplayNameFor(model => model.OrganizationProgramsTuyenTM[0].ProgramToanNS)</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.OrganizationProgramsTuyenTM)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => item.JoinedDate)</td>
+                        <td>@Html.DisplayFor(modelItem => item.ContributionDescription)</td>
+                        <td>
+                            @if (item.IsSponsor.GetValueOrDefault())
+                            {
+                                <span class="badge bg-success">Yes</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-secondary">No</span>
+                            }
+                        </td>
+                        <td>
+                            @if (item.IsOrganizer.GetValueOrDefault())
+                            {
+                                <span class="badge bg-info text-dark">Yes</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-secondary">No</span>
+                            }
+                        </td>
+                        <td>@Html.DisplayFor(modelItem => item.ProgramRole)</td>
+                        <td>
+                            @if (item.FundingAmount.HasValue)
+                            {
+                                @item.FundingAmount.Value.ToString("N0")
+                                @:VNĐ
+                            }
+                            else
+                            {
+                                <em>None</em>
+                            }
+                        </td>
+                        <td>@Html.DisplayFor(modelItem => item.Feedback)</td>
+                        <td>@item.LastUpdated?.ToString("yyyy-MM-dd HH:mm")</td>
+                        <td>@item.Organization?.OrganizationName</td>
+                        <td>@item.ProgramToanNS?.ProgramName</td>
+                        <td>
+                            <div class="btn-group btn-group-sm" role="group">
+                                <a asp-page="./Edit" asp-route-id="@item.OrganizationProgramTuyenTMID" class="btn btn-warning">Edit</a>
+                                <a asp-page="./Details" asp-route-id="@item.OrganizationProgramTuyenTMID" class="btn btn-info">Details</a>
+                                <a asp-page="./Delete" asp-route-id="@item.OrganizationProgramTuyenTMID" class="btn btn-danger">Delete</a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

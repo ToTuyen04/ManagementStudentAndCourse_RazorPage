@@ -2,9 +2,9 @@
 #nullable disable
 using System;
 using System.Collections.Generic;
-using DrugPrevention.Repositories.TuyenTM.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using DrugPrevention.Repositories.TuyenTM.Models;
 
 namespace DrugPrevention.Repositories.TuyenTM.DBContext;
 
@@ -197,31 +197,36 @@ public partial class SU25_PRN222_SE1709_G2_DrugPreventionSystemContext : DbConte
 
         modelBuilder.Entity<OrganizationProgramsTuyenTM>(entity =>
         {
-            entity.HasKey(e => e.OrganizationProgramTuyenTMID).HasName("PK__Organiza__9C1847E4907390C5");
+            entity.HasKey(e => e.OrganizationProgramTuyenTMID).HasName("PK__Organiza__9C1847E416E2F6E2");
 
             entity.ToTable("OrganizationProgramsTuyenTM");
 
             entity.Property(e => e.ContributionDescription).HasColumnType("ntext");
+            entity.Property(e => e.FundingAmount).HasColumnType("decimal(18, 2)");
             entity.Property(e => e.IsOrganizer).HasDefaultValue(false);
             entity.Property(e => e.IsSponsor).HasDefaultValue(false);
             entity.Property(e => e.JoinedDate)
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnType("datetime");
+            entity.Property(e => e.LastUpdated)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime");
+            entity.Property(e => e.ProgramRole).HasMaxLength(100);
 
             entity.HasOne(d => d.Organization).WithMany(p => p.OrganizationProgramsTuyenTMs)
                 .HasForeignKey(d => d.OrganizationID)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Organizat__Organ__41EDCAC5");
+                .HasConstraintName("FK__Organizat__Organ__55F4C372");
 
             entity.HasOne(d => d.ProgramToanNS).WithMany(p => p.OrganizationProgramsTuyenTMs)
                 .HasForeignKey(d => d.ProgramToanNSID)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Organizat__Progr__42E1EEFE");
+                .HasConstraintName("FK__Organizat__Progr__56E8E7AB");
         });
 
         modelBuilder.Entity<OrganizationsTuyenTM>(entity =>
         {
-            entity.HasKey(e => e.OrganizationTuyenTMID).HasName("PK__Organiza__123C3A5789485B5E");
+            entity.HasKey(e => e.OrganizationTuyenTMID).HasName("PK__Organiza__123C3A5728C956F3");
 
             entity.ToTable("OrganizationsTuyenTM");
 
