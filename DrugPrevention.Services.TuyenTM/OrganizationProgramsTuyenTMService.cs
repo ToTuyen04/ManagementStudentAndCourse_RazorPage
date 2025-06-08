@@ -11,7 +11,7 @@ namespace DrugPrevention.Services.TuyenTM
     public class OrganizationProgramsTuyenTMService : IOrganizationProgramsTuyenTMService
     {
         private readonly OrganizationProgramsTuyenTMRepository _repository;
-        public OrganizationProgramsTuyenTMService(OrganizationProgramsTuyenTMRepository repository) => _repository = repository ?? new OrganizationProgramsTuyenTMRepository();
+        public OrganizationProgramsTuyenTMService() => _repository ??= new OrganizationProgramsTuyenTMRepository();
 
         public async Task<List<OrganizationProgramsTuyenTM>> GetAllAsync()
         {

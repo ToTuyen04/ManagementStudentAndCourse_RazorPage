@@ -1,0 +1,60 @@
+﻿@page
+@model DrugPrevention.RazorWebApp.TuyenTM.Pages.OrganizationProgramTuyenTM.IndexModel
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.OrganizationProgramsTuyenTM[0].JoinedDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OrganizationProgramsTuyenTM[0].ContributionDescription)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OrganizationProgramsTuyenTM[0].IsSponsor)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OrganizationProgramsTuyenTM[0].IsOrganizer)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OrganizationProgramsTuyenTM[0].Organization)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OrganizationProgramsTuyenTM[0].ProgramToanNS)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.OrganizationProgramsTuyenTM) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.JoinedDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ContributionDescription)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsSponsor)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsOrganizer)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Organization.OrganizationName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProgramToanNS.ProgramName)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.OrganizationProgramTuyenTMID">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.OrganizationProgramTuyenTMID">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.OrganizationProgramTuyenTMID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

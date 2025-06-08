@@ -1,0 +1,49 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using DrugPrevention.Repositories.TuyenTM.DBContext;
+using DrugPrevention.Repositories.TuyenTM.Models;
+using DrugPrevention.Services.TuyenTM;
+
+namespace DrugPrevention.RazorWebApp.TuyenTM.Pages.OrganizationProgramTuyenTM
+{
+    public class CreateModel : PageModel
+    {
+        private readonly IOrganizationProgramsTuyenTMService _organizationProgramsTuyenTMService;
+        private readonly IOrganizationsTuyenTMService _organizationsTuyenTMService;
+
+        public CreateModel(IOrganizationProgramsTuyenTMService organizationProgramsTuyenTMService, IOrganizationsTuyenTMService organizationsTuyenTMService)
+        {
+            _organizationProgramsTuyenTMService = organizationProgramsTuyenTMService;
+            _organizationsTuyenTMService = organizationsTuyenTMService;
+        }
+
+        public async Task<IActionResult> OnGet()
+        {
+            var organizations = await _organizationsTuyenTMService.GetAllAsync();
+            ViewData["OrganizationID"] = new SelectList(organizations, "OrganizationTuyenTMID", "OrganizationName");
+        //ViewData["ProgramToanNSID"] = new SelectList(_context.CommunityProgramsToanNs, "ProgramToanNSID", "ProgramName");
+            return Page();
+        }
+
+        [BindProperty]
+        public OrganizationProgramsTuyenTM OrganizationProgramsTuyenTM { get; set; } = default!;
+
+        // For more information, see https://aka.ms/RazorPagesCRUD.
+        public async Task<IActionResult> OnPostAsync()
+        {
+            if (!ModelState.IsValid)
+            {
+                return Page();
+            }
+
+            await _organizationProgramsTuyenTMService.AddAsync(OrganizationProgramsTuyenTM);
+
+            return RedirectToPage("./Index");
+        }
+    }
+}
