@@ -1,73 +1,47 @@
 ﻿@page
 @model DrugPrevention.RazorWebApp.TuyenTM.Pages.OrganizationProgramTuyenTM.DetailsModel
 
-<div>
-    <h4>OrganizationProgramsTuyenTM</h4>
+<div class="container mt-4">
+    <h3 class="mb-4">Organization Program Details</h3>
     <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.OrganizationProgramsTuyenTM.JoinedDate)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.OrganizationProgramsTuyenTM.JoinedDate)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.OrganizationProgramsTuyenTM.ContributionDescription)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.OrganizationProgramsTuyenTM.ContributionDescription)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.OrganizationProgramsTuyenTM.IsSponsor)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.OrganizationProgramsTuyenTM.IsSponsor)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.OrganizationProgramsTuyenTM.IsOrganizer)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.OrganizationProgramsTuyenTM.IsOrganizer)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.OrganizationProgramsTuyenTM.ProgramRole)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.OrganizationProgramsTuyenTM.ProgramRole)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.OrganizationProgramsTuyenTM.FundingAmount)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.OrganizationProgramsTuyenTM.FundingAmount)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.OrganizationProgramsTuyenTM.Feedback)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.OrganizationProgramsTuyenTM.Feedback)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.OrganizationProgramsTuyenTM.LastUpdated)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.OrganizationProgramsTuyenTM.LastUpdated)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.OrganizationProgramsTuyenTM.Organization)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.OrganizationProgramsTuyenTM.Organization.OrganizationName)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.OrganizationProgramsTuyenTM.ProgramToanNS)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.OrganizationProgramsTuyenTM.ProgramToanNS.ProgramName)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-page="./Edit" asp-route-id="@Model.OrganizationProgramsTuyenTM.OrganizationProgramTuyenTMID">Edit</a> |
-    <a asp-page="./Index">Back to List</a>
+    <div class="row mb-3">
+        <div class="col-sm-4 fw-bold">Joined Date:</div>
+        <div class="col-sm-8">@Model.OrganizationProgramsTuyenTM.JoinedDate.ToString("HH:mm dd/MM/yyyy")</div>
+
+        <div class="col-sm-4 fw-bold">Contribution Description:</div>
+        <div class="col-sm-8">@Model.OrganizationProgramsTuyenTM.ContributionDescription</div>
+
+        <div class="col-sm-4 fw-bold">Is Sponsor:</div>
+        <div class="col-sm-8">@((Model.OrganizationProgramsTuyenTM.IsSponsor == true) ? "Yes" : "No")</div>
+
+        <div class="col-sm-4 fw-bold">Is Organizer:</div>
+        <div class="col-sm-8">@((Model.OrganizationProgramsTuyenTM.IsOrganizer == true) ? "Yes" : "No")</div>
+
+        <div class="col-sm-4 fw-bold">Program Role:</div>
+        <div class="col-sm-8">@Model.OrganizationProgramsTuyenTM.ProgramRole</div>
+
+        <div class="col-sm-4 fw-bold">Funding Amount:</div>
+        <div class="col-sm-8">@Model.OrganizationProgramsTuyenTM.FundingAmount?.ToString("C")</div>
+
+        <div class="col-sm-4 fw-bold">Feedback:</div>
+        <div class="col-sm-8">@Model.OrganizationProgramsTuyenTM.Feedback</div>
+
+        <div class="col-sm-4 fw-bold">Last Updated:</div>
+        <div class="col-sm-8">@Model.OrganizationProgramsTuyenTM.LastUpdated?.ToString("HH:mm dd/MM/yyyy")</div>
+
+        <div class="col-sm-4 fw-bold">Organization:</div>
+        <div class="col-sm-8">@Model.OrganizationProgramsTuyenTM.Organization?.OrganizationName</div>
+
+        <div class="col-sm-4 fw-bold">Program:</div>
+        <div class="col-sm-8">@Model.OrganizationProgramsTuyenTM.ProgramToanNS?.ProgramName</div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-sm-4"></div>
+        <div class="col-sm-8">
+            <a asp-page="./Edit" asp-route-id="@Model.OrganizationProgramsTuyenTM.OrganizationProgramTuyenTMID" class="btn btn-primary me-2">Edit</a>
+            <a asp-page="./Index" class="btn btn-secondary">Back to List</a>
+        </div>
+    </div>
+
 </div>

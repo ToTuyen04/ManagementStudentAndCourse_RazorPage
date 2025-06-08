@@ -61,7 +61,6 @@ namespace DrugPrevention.RazorWebApp.TuyenTM.Pages.OrganizationProgramTuyenTM
             }
 
             //_context.Attach(OrganizationProgramsTuyenTM).State = EntityState.Modified;
-
             try
             {
                 await _organizationProgramsTuyenTMService.UpdateAsync(OrganizationProgramsTuyenTM);

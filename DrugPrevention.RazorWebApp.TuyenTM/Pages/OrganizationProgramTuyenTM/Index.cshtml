@@ -28,12 +28,13 @@
                 @foreach (var item in Model.OrganizationProgramsTuyenTM)
                 {
                     <tr>
-                        <td>@Html.DisplayFor(modelItem => item.JoinedDate)</td>
+                        @* <td>@Html.DisplayFor(modelItem => item.JoinedDate.ToString("HH:mm dd/MM/yyyy"))</td> *@
+                        <td>@item.JoinedDate.ToString("HH:mm dd/MM/yyyy")</td>
                         <td>@Html.DisplayFor(modelItem => item.ContributionDescription)</td>
                         <td>
                             @if (item.IsSponsor.GetValueOrDefault())
                             {
-                                <span class="badge bg-success">Yes</span>
+                                <span class="badge bg-info text-dark">Yes</span>
                             }
                             else
                             {
@@ -63,7 +64,7 @@
                             }
                         </td>
                         <td>@Html.DisplayFor(modelItem => item.Feedback)</td>
-                        <td>@item.LastUpdated?.ToString("yyyy-MM-dd HH:mm")</td>
+                        <td>@item.LastUpdated?.ToString("HH:mm dd/MM/yyyy")</td>
                         <td>@item.Organization?.OrganizationName</td>
                         <td>@item.ProgramToanNS?.ProgramName</td>
                         <td>

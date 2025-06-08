@@ -1,74 +1,128 @@
 ﻿@page
 @model DrugPrevention.RazorWebApp.TuyenTM.Pages.OrganizationProgramTuyenTM.EditModel
 
-<h4>OrganizationProgramsTuyenTM</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="OrganizationProgramsTuyenTM.OrganizationProgramTuyenTMID" />
-            <div class="form-group">
-                <label asp-for="OrganizationProgramsTuyenTM.OrganizationID" class="control-label"></label>
-                <select asp-for="OrganizationProgramsTuyenTM.OrganizationID" class="form-control" asp-items="ViewBag.OrganizationID"></select>
+<div class="container mt-4">
+    <h2 class="mb-4">Edit Organization Program</h2>
+    <hr />
+    <form method="post" class="needs-validation" novalidate>
+        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+        <input type="hidden" asp-for="OrganizationProgramsTuyenTM.OrganizationProgramTuyenTMID" />
+
+        <div class="row g-3">
+            <div class="col-md-6">
+                <label asp-for="OrganizationProgramsTuyenTM.OrganizationID" class="form-label"></label>
+                <select asp-for="OrganizationProgramsTuyenTM.OrganizationID" class="form-select" asp-items="ViewBag.OrganizationID"></select>
                 <span asp-validation-for="OrganizationProgramsTuyenTM.OrganizationID" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="OrganizationProgramsTuyenTM.ProgramToanNSID" class="control-label"></label>
-                <select asp-for="OrganizationProgramsTuyenTM.ProgramToanNSID" class="form-control" asp-items="ViewBag.ProgramToanNSID"></select>
+
+            <div class="col-md-6">
+                <label asp-for="OrganizationProgramsTuyenTM.ProgramToanNSID" class="form-label"></label>
+                <select asp-for="OrganizationProgramsTuyenTM.ProgramToanNSID" class="form-select" asp-items="ViewBag.ProgramToanNSID"></select>
                 <span asp-validation-for="OrganizationProgramsTuyenTM.ProgramToanNSID" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="OrganizationProgramsTuyenTM.JoinedDate" class="control-label"></label>
-                <input asp-for="OrganizationProgramsTuyenTM.JoinedDate" class="form-control" />
-                <span asp-validation-for="OrganizationProgramsTuyenTM.JoinedDate" class="text-danger"></span>
+
+            @* <div class="col-md-6"> *@
+            @*     <label asp-for="OrganizationProgramsTuyenTM.JoinedDate" class="form-label"></label> *@
+            @*     <input asp-for="OrganizationProgramsTuyenTM.JoinedDate" type="datetime-local" class="form-control" /> *@
+            @*     <span asp-validation-for="OrganizationProgramsTuyenTM.JoinedDate" class="text-danger"></span> *@
+            @* </div> *@
+
+            @* <div class="col-md-6"> *@
+            @*     <label asp-for="OrganizationProgramsTuyenTM.LastUpdated" class="form-label"></label> *@
+            @*     <input asp-for="OrganizationProgramsTuyenTM.LastUpdated" type="datetime-local" class="form-control" /> *@
+            @*     <span asp-validation-for="OrganizationProgramsTuyenTM.LastUpdated" class="text-danger"></span> *@
+            @* </div> *@
+
+            <div class="col-md-6">
+                <label asp-for="OrganizationProgramsTuyenTM.JoinedDate" class="form-label"></label>
+                <input type="text"
+                       class="form-control"
+                       value="@Model.OrganizationProgramsTuyenTM.JoinedDate.ToString("HH:mm dd/MM/yyyy")"
+                       readonly />
             </div>
-            <div class="form-group">
-                <label asp-for="OrganizationProgramsTuyenTM.ContributionDescription" class="control-label"></label>
+
+            <div class="col-md-6">
+                <label asp-for="OrganizationProgramsTuyenTM.LastUpdated" class="form-label"></label>
+                <input type="text"
+                       class="form-control"
+                       value="@Model.OrganizationProgramsTuyenTM.LastUpdated?.ToString("HH:mm dd/MM/yyyy")"
+                       readonly />
+            </div>
+
+            <div class="col-md-12">
+                <label asp-for="OrganizationProgramsTuyenTM.ContributionDescription" class="form-label"></label>
                 <input asp-for="OrganizationProgramsTuyenTM.ContributionDescription" class="form-control" />
                 <span asp-validation-for="OrganizationProgramsTuyenTM.ContributionDescription" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="OrganizationProgramsTuyenTM.IsSponsor" class="control-label"></label>
-                <input asp-for="OrganizationProgramsTuyenTM.IsSponsor" class="form-control" />
-                <span asp-validation-for="OrganizationProgramsTuyenTM.IsSponsor" class="text-danger"></span>
+
+            @* <div class="col-md-6 form-check mt-2"> *@
+            @*     <input asp-for="OrganizationProgramsTuyenTM.IsSponsor" class="form-check-input" type="checkbox" /> *@
+            @*     <label asp-for="OrganizationProgramsTuyenTM.IsSponsor" class="form-check-label"></label> *@
+            @*     <span asp-validation-for="OrganizationProgramsTuyenTM.IsSponsor" class="text-danger"></span> *@
+            @* </div> *@
+
+            @* <div class="col-md-6 form-check mt-2"> *@
+            @*     <input asp-for="OrganizationProgramsTuyenTM.IsOrganizer" class="form-check-input" type="checkbox" /> *@
+            @*     <label asp-for="OrganizationProgramsTuyenTM.IsOrganizer" class="form-check-label"></label> *@
+            @*     <span asp-validation-for="OrganizationProgramsTuyenTM.IsOrganizer" class="text-danger"></span> *@
+            @* </div> *@
+
+            <div class="col-md-6">
+                <div class="form-check mt-2">
+                    <input type="checkbox" class="form-check-input"
+                           id="IsSponsor"
+                           name="OrganizationProgramsTuyenTM.IsSponsor"
+                           value="true"
+                    @(Model.OrganizationProgramsTuyenTM.IsSponsor == true ? "checked" : "") />
+                    <label for="IsSponsor" class="form-check-label">Is Sponsor</label>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="OrganizationProgramsTuyenTM.IsOrganizer" class="control-label"></label>
-                <input asp-for="OrganizationProgramsTuyenTM.IsOrganizer" class="form-control" />
-                <span asp-validation-for="OrganizationProgramsTuyenTM.IsOrganizer" class="text-danger"></span>
+
+            <div class="col-md-6">
+                <div class="form-check mt-2">
+                    <input type="checkbox" class="form-check-input"
+                           id="IsOrganizer"
+                           name="OrganizationProgramsTuyenTM.IsOrganizer"
+                           value="true"
+                    @(Model.OrganizationProgramsTuyenTM.IsOrganizer == true ? "checked" : "") />
+                    <label for="IsOrganizer" class="form-check-label">Is Organizer</label>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="OrganizationProgramsTuyenTM.ProgramRole" class="control-label"></label>
+
+
+            <div class="col-md-6">
+                <label asp-for="OrganizationProgramsTuyenTM.ProgramRole" class="form-label"></label>
                 <input asp-for="OrganizationProgramsTuyenTM.ProgramRole" class="form-control" />
                 <span asp-validation-for="OrganizationProgramsTuyenTM.ProgramRole" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="OrganizationProgramsTuyenTM.FundingAmount" class="control-label"></label>
-                <input asp-for="OrganizationProgramsTuyenTM.FundingAmount" class="form-control" />
+
+            <div class="col-md-6">
+                <label asp-for="OrganizationProgramsTuyenTM.FundingAmount" class="form-label"></label>
+                <input asp-for="OrganizationProgramsTuyenTM.FundingAmount" type="number" class="form-control" />
                 <span asp-validation-for="OrganizationProgramsTuyenTM.FundingAmount" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="OrganizationProgramsTuyenTM.Feedback" class="control-label"></label>
-                <input asp-for="OrganizationProgramsTuyenTM.Feedback" class="form-control" />
+
+            <div class="col-12">
+                <label asp-for="OrganizationProgramsTuyenTM.Feedback" class="form-label"></label>
+                <textarea asp-for="OrganizationProgramsTuyenTM.Feedback" class="form-control" rows="3"></textarea>
                 <span asp-validation-for="OrganizationProgramsTuyenTM.Feedback" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="OrganizationProgramsTuyenTM.LastUpdated" class="control-label"></label>
-                <input asp-for="OrganizationProgramsTuyenTM.LastUpdated" class="form-control" />
-                <span asp-validation-for="OrganizationProgramsTuyenTM.LastUpdated" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
-</div>
 
-<div>
-    <a asp-page="./Index">Back to List</a>
+            <div class="col-12 mt-4 d-flex justify-content-between">
+                @* <a asp-page="./Index" class="btn btn-secondary">Back to List</a> *@
+                <div class="mt-3 mb-5">
+                    <a asp-page="./Index" class="btn btn-secondary">Back to List</a>
+                </div>
+                <div class="mt-3 mb-5">
+                    <input type="submit" value="Save Changes" class="btn btn-primary" />
+                </div>
+            </div>
+        </div>
+    </form>
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }
