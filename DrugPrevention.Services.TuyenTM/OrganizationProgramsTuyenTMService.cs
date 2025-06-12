@@ -35,6 +35,7 @@ namespace DrugPrevention.Services.TuyenTM
 
         public async Task<int> UpdateAsync(OrganizationProgramsTuyenTM program)
         {
+            //program.JoinedDate = DateTime.
             program.LastUpdated = DateTime.Now;
             return await _repository.UpdateAsync(program);
         }

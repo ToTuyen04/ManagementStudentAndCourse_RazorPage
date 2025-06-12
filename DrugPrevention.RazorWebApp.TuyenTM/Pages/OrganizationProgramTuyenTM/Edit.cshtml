@@ -116,6 +116,9 @@
                 <div class="mt-3 mb-5">
                     <input type="submit" value="Save Changes" class="btn btn-primary" />
                 </div>
+                <div class="mt-3 mb-5">
+                    <input type="button" value="Save Changes with SignalR" class="btn btn-primary" id="btnHubUpdate" />
+                </div>
             </div>
         </div>
     </form>
@@ -126,3 +129,42 @@
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
 }
+<script src="~/js/signalr/dist/browser/signalr.js"></script>
+<script>
+    "use strict";
+
+    var connection = new signalR.HubConnectionBuilder().withUrl("/DrugPreventionHub").build();
+
+    connection.start().then(function () {
+        console.log("Connected to the SignalR Hub");
+    }).catch(function (err) {
+        return console.error(err.toString());
+    });
+
+    document.getElementById("btnHubUpdate").addEventListener("click", function (event) {
+
+
+    var dataObj = JSON.stringify({
+
+            //int tự tăng thì để null
+            OrganizationProgramTuyenTMID: document.getElementById("OrganizationProgramsTuyenTM_OrganizationProgramTuyenTMID").value,
+            JoinedDate: new Date().toISOString(),
+            LastUpdated: new Date().toISOString(),
+            IsSponsor: document.getElementById("IsSponsor").checked,
+            IsOrganizer: document.getElementById("IsOrganizer").checked,
+            ContributionDescription: document.getElementById("OrganizationProgramsTuyenTM_ContributionDescription").value,
+            ProgramRole: document.getElementById("OrganizationProgramsTuyenTM_ProgramRole").value,
+            FundingAmount: document.getElementById("OrganizationProgramsTuyenTM_FundingAmount").value,
+            Feedback: document.getElementById("OrganizationProgramsTuyenTM_Feedback").value,
+            OrganizationID: document.getElementById("OrganizationProgramsTuyenTM_OrganizationID").value,
+            ProgramToanNSID: document.getElementById("OrganizationProgramsTuyenTM_ProgramToanNSID").value
+            });
+
+        console.log(dataObj);
+
+        connection.invoke("HubUpdate_OrganizationProgramTuyenTM", dataObj).catch(function (err) {
+            return console.error(err.toString());
+        });
+        event.preventDefault();
+          });
+</script>

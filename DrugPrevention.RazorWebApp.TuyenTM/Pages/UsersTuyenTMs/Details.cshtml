@@ -15,6 +15,11 @@
         </div>
         <div class="card-body" id="UserTuyenTMID">
             <dl class="row">
+
+				@* <dt class="col-sm-3">Organization Program ID</dt> *@
+    @*             <dd class="col-sm-10" id="TransactionCashDepositSlip_Code"> *@
+    @*                 @Html.DisplayFor(model => model.TransactionCashDepositSlip.Code) *@
+    @*             </dd> *@
                 <dt class="col-sm-3">Username</dt>
                 <dd class="col-sm-9">@Model.UsersTuyenTM.Username</dd>
 
@@ -94,5 +99,23 @@
         // $('#UserTuyenTMBodyID').find(`tr[id='${UserTuyenTMID}']`).remove();
 		document.getElementById("UserTuyenTMID").innerHTML = "This item had deleted";
     });
+
+        connection.on("Receiver_UpdateUserTuyenTM", function (item) {
+        if (item.userTuyenTMID == "@Model.UsersTuyenTM.UserTuyenTMID") {
+            document.querySelector("dd:nth-of-type(1)").textContent = item.username;
+            document.querySelector("dd:nth-of-type(2)").textContent = item.email;
+            document.querySelector("dd:nth-of-type(3)").textContent = item.firstName;
+            document.querySelector("dd:nth-of-type(4)").textContent = item.lastName;
+            document.querySelector("dd:nth-of-type(5)").textContent = item.role;
+            document.querySelector("dd:nth-of-type(6)").textContent = item.phoneNumber;
+            document.querySelector("dd:nth-of-type(7)").textContent = new Date(item.registrationDate).toLocaleDateString('en-GB');
+
+            let statusHtml = item.isActive
+                ? '<span class="badge bg-success">Active</span>'
+                : '<span class="badge bg-secondary">Inactive</span>';
+            document.querySelector("dd:nth-of-type(8)").innerHTML = statusHtml;
+        }
+    });
+
 
 </script>

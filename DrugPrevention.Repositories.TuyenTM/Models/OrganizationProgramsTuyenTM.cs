@@ -2,6 +2,7 @@
 #nullable disable
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace DrugPrevention.Repositories.TuyenTM.Models;
 
@@ -15,6 +16,8 @@ public partial class OrganizationProgramsTuyenTM
 
     public DateTime JoinedDate { get; set; }
 
+    [Required(ErrorMessage = "Contribution description is required.")]
+    [StringLength(500, ErrorMessage = "Contribution description cannot exceed 500 characters.")]
     public string ContributionDescription { get; set; }
 
     public bool? IsSponsor { get; set; }

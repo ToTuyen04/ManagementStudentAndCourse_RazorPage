@@ -101,6 +101,7 @@
                     <div class="d-flex justify-content-between">
                         <a asp-page="./Index" class="btn btn-outline-secondary">Back to List</a>
                         <input type="submit" value="Save" class="btn btn-primary" />
+						<input type="button" id="btnHubUpdate" value="Update by SignalRHub" class="btn btn-primary" />
                     </div>
                 </form>
             </div>
@@ -111,4 +112,6 @@
 @section Scripts {
     @await Html.PartialAsync("_ValidationScriptsPartial")
 }
+
+
 

@@ -44,8 +44,38 @@
             <form method="post" class="d-inline">
                 <input type="hidden" asp-for="OrganizationProgramsTuyenTM.OrganizationProgramTuyenTMID" />
                 <input type="submit" value="Delete" class="btn btn-danger me-2" />
+                <input type="button" id="btnHubDelete" value="Delete by SignalRHub" class="btn btn-primary" />
             </form>
             <a asp-page="./Index" class="btn btn-secondary">Back to List</a>
         </div>
     </div>
 </div>
+<script src="~/js/signalr/dist/browser/signalr.js"></script>
+<script>
+    "use strict";
+
+    var connection = new signalR.HubConnectionBuilder().withUrl("/DrugPreventionHub").build();
+
+    connection.start().then(function () {
+        console.log("Connected to the SignalR Hub");
+    }).catch(function (err) {
+        return console.error(err.toString());
+    });
+
+    document.getElementById("btnHubDelete").addEventListener("click", function (event) {
+
+        event.preventDefault();
+
+        var dataObj = document.getElementById("OrganizationProgramsTuyenTM_OrganizationProgramTuyenTMID").value;
+        console.log(dataObj);
+
+        connection.invoke("HubDelete_OrganizationProgramTuyenTM", dataObj).catch(function (err) {
+            return console.error(err.toString());
+        });
+    });
+
+     connection.on("OrganizationProgramDeletedRedirect", function () {
+        window.location.href = "/OrganizationProgramTuyenTM/Index";
+    });
+
+</script>

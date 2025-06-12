@@ -5,6 +5,10 @@
     <h3 class="mb-4">Organization Program Details</h3>
     <hr />
     <div class="row mb-3">
+
+        <div class="col-sm-4 fw-bold">Organization Program ID:</div>
+        <div class="col-sm-8">@Model.OrganizationProgramsTuyenTM.OrganizationProgramTuyenTMID</div>
+        
         <div class="col-sm-4 fw-bold">Joined Date:</div>
         <div class="col-sm-8">@Model.OrganizationProgramsTuyenTM.JoinedDate.ToString("HH:mm dd/MM/yyyy")</div>
 
@@ -43,5 +47,37 @@
             <a asp-page="./Index" class="btn btn-secondary">Back to List</a>
         </div>
     </div>
-
 </div>
+
+<script>
+    "use strict";
+
+    var connection = new signalR.HubConnectionBuilder().withUrl("/DrugPreventionHub").build();
+
+    connection.start().then(function () {
+        console.log("Connected to the SignalR Hub");
+    }).catch(function (err) {
+        return console.error(err.toString());
+    });
+
+    connection.on("Receiver_DeleteOrganizationTuyenTM", function (OrganizationProgramTuyenTMID) {
+        // alert($(`#${UserTuyenTMID}`).text());
+        // $('#UserTuyenTMBodyID').find(`tr[id='${UserTuyenTMID}']`).remove();
+        document.getElementById("OrganizationProgramTuyenTMID").innerHTML = "This item had deleted";
+    });
+
+    connection.on("Receiver_UpdateOrganizationProgramTuyenTM", function(item) {
+		document.getElementById("OrganizationProgramTuyenTMID").innerHTML = item.OrganizationProgramTuyenTMID;
+		document.getElementById("JoinedDate").innerHTML = item.JoinedDate ? new Date(item.JoinedDate).toLocaleString('vi-VN') : "N/A";
+		document.getElementById("ContributionDescription").innerHTML = item.ContributionDescription || "N/A";
+		document.getElementById("IsSponsor").innerHTML = item.IsSponsor ? "Yes" : "No";
+        document.getElementById("IsOrganizer").innerHTML = item.IsOrganizer ? "Yes" : "No";
+        document.getElementById("ProgramRole").innerHTML = item.ProgramRole || "N/A";
+        document.getElementById("FundingAmount").innerHTML = item.FundingAmount ? item.FundingAmount.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }) : "N/A";
+        document.getElementById("Feedback").innerHTML = item.Feedback || "N/A";
+        document.getElementById("LastUpdated").innerHTML = item.LastUpdated ? new Date(item.LastUpdated).toLocaleString('vi-VN') : "N/A";
+		document.getElementById("OrganizationName").innerHTML = item.Organization ? item.Organization.OrganizationName : "N/A";
+		document.getElementById("ProgramName").innerHTML = item.ProgramToanNS ? item.ProgramToanNS.ProgramName : "N/A";
+    })
+
+</script>
