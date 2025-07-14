@@ -7,37 +7,37 @@
     <div class="row mb-3">
 
         <div class="col-sm-4 fw-bold">Organization Program ID:</div>
-        <div class="col-sm-8">@Model.OrganizationProgramsTuyenTM.OrganizationProgramTuyenTMID</div>
+        <div class="col-sm-8" id="OrganizationProgramTuyenTMID">@Model.OrganizationProgramsTuyenTM.OrganizationProgramTuyenTMID</div>
         
         <div class="col-sm-4 fw-bold">Joined Date:</div>
-        <div class="col-sm-8">@Model.OrganizationProgramsTuyenTM.JoinedDate.ToString("HH:mm dd/MM/yyyy")</div>
+        <div class="col-sm-8" id="JoinedDate">@Model.OrganizationProgramsTuyenTM.JoinedDate.ToString("HH:mm dd/MM/yyyy")</div>
 
         <div class="col-sm-4 fw-bold">Contribution Description:</div>
-        <div class="col-sm-8">@Model.OrganizationProgramsTuyenTM.ContributionDescription</div>
+        <div class="col-sm-8" id="ContributionDescription">@Model.OrganizationProgramsTuyenTM.ContributionDescription</div>
 
         <div class="col-sm-4 fw-bold">Is Sponsor:</div>
-        <div class="col-sm-8">@((Model.OrganizationProgramsTuyenTM.IsSponsor == true) ? "Yes" : "No")</div>
+        <div class="col-sm-8" id="IsSponsor">@((Model.OrganizationProgramsTuyenTM.IsSponsor == true) ? "Yes" : "No")</div>
 
         <div class="col-sm-4 fw-bold">Is Organizer:</div>
-        <div class="col-sm-8">@((Model.OrganizationProgramsTuyenTM.IsOrganizer == true) ? "Yes" : "No")</div>
+        <div class="col-sm-8" id="IsOrganizer">@((Model.OrganizationProgramsTuyenTM.IsOrganizer == true) ? "Yes" : "No")</div>
 
         <div class="col-sm-4 fw-bold">Program Role:</div>
-        <div class="col-sm-8">@Model.OrganizationProgramsTuyenTM.ProgramRole</div>
+        <div class="col-sm-8" id="ProgramRole">@Model.OrganizationProgramsTuyenTM.ProgramRole</div>
 
         <div class="col-sm-4 fw-bold">Funding Amount:</div>
-        <div class="col-sm-8">@Model.OrganizationProgramsTuyenTM.FundingAmount?.ToString("C")</div>
+        <div class="col-sm-8" id="FundingAmount">@Model.OrganizationProgramsTuyenTM.FundingAmount?.ToString("C")</div>
 
         <div class="col-sm-4 fw-bold">Feedback:</div>
-        <div class="col-sm-8">@Model.OrganizationProgramsTuyenTM.Feedback</div>
+        <div class="col-sm-8" id="Feedback">@Model.OrganizationProgramsTuyenTM.Feedback</div>
 
         <div class="col-sm-4 fw-bold">Last Updated:</div>
-        <div class="col-sm-8">@Model.OrganizationProgramsTuyenTM.LastUpdated?.ToString("HH:mm dd/MM/yyyy")</div>
+        <div class="col-sm-8" id="LastUpdated">@Model.OrganizationProgramsTuyenTM.LastUpdated?.ToString("HH:mm dd/MM/yyyy")</div>
 
         <div class="col-sm-4 fw-bold">Organization:</div>
-        <div class="col-sm-8">@Model.OrganizationProgramsTuyenTM.Organization?.OrganizationName</div>
+        <div class="col-sm-8" id="OrganizationName">@Model.OrganizationProgramsTuyenTM.Organization?.OrganizationName</div>
 
         <div class="col-sm-4 fw-bold">Program:</div>
-        <div class="col-sm-8">@Model.OrganizationProgramsTuyenTM.ProgramToanNS?.ProgramName</div>
+        <div class="col-sm-8" id="ProgramName">@Model.OrganizationProgramsTuyenTM.ProgramToanNS?.ProgramName</div>
     </div>
 
     <div class="row mt-4">
@@ -48,7 +48,7 @@
         </div>
     </div>
 </div>
-
+<script src="~/js/signalr/dist/browser/signalr.js"></script>
 <script>
     "use strict";
 
@@ -60,24 +60,62 @@
         return console.error(err.toString());
     });
 
-    connection.on("Receiver_DeleteOrganizationTuyenTM", function (OrganizationProgramTuyenTMID) {
-        // alert($(`#${UserTuyenTMID}`).text());
-        // $('#UserTuyenTMBodyID').find(`tr[id='${UserTuyenTMID}']`).remove();
-        document.getElementById("OrganizationProgramTuyenTMID").innerHTML = "This item had deleted";
+    // connection.on("Receiver_DeleteOrganizationTuyenTM", function (OrganizationProgramTuyenTMID) {
+    //     alert($(`#${UserTuyenTMID}`).text());
+    //     $('#UserTuyenTMBodyID').find(`tr[id='${UserTuyenTMID}']`).remove();
+    //     document.getElementById("OrganizationProgramTuyenTMID").innerHTML = "This item had deleted";
+    // });
+
+        connection.on("Receiver_DeleteOrganizationTuyenTM", function (deletedId) {
+        const currentId = document.getElementById("OrganizationProgramTuyenTMID")?.textContent?.trim();
+        if (currentId === deletedId.toString()) {
+            const fieldDefaults = {
+                OrganizationProgramTuyenTMID: "0",             // số
+                JoinedDate: "",                                // chuỗi
+                ContributionDescription: "",                   // chuỗi
+                IsSponsor: "false",                            // boolean
+                IsOrganizer: "false",                          // boolean
+                ProgramRole: "",                               // chuỗi
+                FundingAmount: "0",                            // số
+                Feedback: "",                                  // chuỗi
+                LastUpdated: "",                               // chuỗi (hoặc ngày)
+                OrganizationName: "",                          // chuỗi
+                ProgramName: ""                                // chuỗi
+            };
+
+            Object.entries(fieldDefaults).forEach(([id, defaultValue]) => {
+                const el = document.getElementById(id);
+                if (el) {
+                    el.textContent = defaultValue;
+                }
+            });
+
+            // Optional: disable các nút hành động
+            document.querySelector("a.btn-primary.me-2")?.classList.add("disabled");
+            document.querySelector("a.btn-danger")?.classList.add("disabled");
+
+            // Optional: hiển thị thông báo
+            alert("This Organization Program has been deleted by another user.");
+        }
     });
 
+
+
     connection.on("Receiver_UpdateOrganizationProgramTuyenTM", function(item) {
-		document.getElementById("OrganizationProgramTuyenTMID").innerHTML = item.OrganizationProgramTuyenTMID;
-		document.getElementById("JoinedDate").innerHTML = item.JoinedDate ? new Date(item.JoinedDate).toLocaleString('vi-VN') : "N/A";
-		document.getElementById("ContributionDescription").innerHTML = item.ContributionDescription || "N/A";
-		document.getElementById("IsSponsor").innerHTML = item.IsSponsor ? "Yes" : "No";
-        document.getElementById("IsOrganizer").innerHTML = item.IsOrganizer ? "Yes" : "No";
-        document.getElementById("ProgramRole").innerHTML = item.ProgramRole || "N/A";
-        document.getElementById("FundingAmount").innerHTML = item.FundingAmount ? item.FundingAmount.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }) : "N/A";
-        document.getElementById("Feedback").innerHTML = item.Feedback || "N/A";
-        document.getElementById("LastUpdated").innerHTML = item.LastUpdated ? new Date(item.LastUpdated).toLocaleString('vi-VN') : "N/A";
-		document.getElementById("OrganizationName").innerHTML = item.Organization ? item.Organization.OrganizationName : "N/A";
-		document.getElementById("ProgramName").innerHTML = item.ProgramToanNS ? item.ProgramToanNS.ProgramName : "N/A";
+        console.log("item: ", item);
+		document.getElementById("OrganizationProgramTuyenTMID").innerHTML = item.organizationProgramTuyenTMID;
+        document.getElementById("JoinedDate").innerHTML = item.joinedDate ? new Date(item.joinedDate).toLocaleString('vi-VN') : "N/A";
+		document.getElementById("ContributionDescription").innerHTML = item.contributionDescription || "N/A";
+		document.getElementById("IsSponsor").innerHTML = item.isSponsor ? "Yes" : "No";
+        document.getElementById("IsOrganizer").innerHTML = item.isOrganizer ? "Yes" : "No";
+        document.getElementById("ProgramRole").innerHTML = item.programRole || "N/A";
+        document.getElementById("FundingAmount").innerHTML = item.fundingAmount ? item.fundingAmount.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }) : "N/A";
+        document.getElementById("Feedback").innerHTML = item.feedback || "N/A";
+        document.getElementById("LastUpdated").innerHTML = item.lastUpdated ? new Date(item.lastUpdated).toLocaleString('vi-VN') : "N/A";
+		document.getElementById("OrganizationName").innerHTML = item.organizationName || "N/A";
+		document.getElementById("ProgramName").innerHTML = item.programName || "N/A";
+
+        alert(item);
     })
 
 </script>

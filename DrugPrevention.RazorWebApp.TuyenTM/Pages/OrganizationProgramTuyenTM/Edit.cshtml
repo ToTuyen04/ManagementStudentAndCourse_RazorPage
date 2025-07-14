@@ -6,18 +6,18 @@
     <hr />
     <form method="post" class="needs-validation" novalidate>
         <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
-        <input type="hidden" asp-for="OrganizationProgramsTuyenTM.OrganizationProgramTuyenTMID" />
+        <input id="OrganizationProgramsTuyenTM_OrganizationProgramTuyenTMID" type="hidden" asp-for="OrganizationProgramsTuyenTM.OrganizationProgramTuyenTMID" />
 
         <div class="row g-3">
             <div class="col-md-6">
                 <label asp-for="OrganizationProgramsTuyenTM.OrganizationID" class="form-label"></label>
-                <select asp-for="OrganizationProgramsTuyenTM.OrganizationID" class="form-select" asp-items="ViewBag.OrganizationID"></select>
+                <select id="OrganizationProgramsTuyenTM_OrganizationID" asp-for="OrganizationProgramsTuyenTM.OrganizationID" class="form-select" asp-items="ViewBag.OrganizationID"></select>
                 <span asp-validation-for="OrganizationProgramsTuyenTM.OrganizationID" class="text-danger"></span>
             </div>
 
             <div class="col-md-6">
                 <label asp-for="OrganizationProgramsTuyenTM.ProgramToanNSID" class="form-label"></label>
-                <select asp-for="OrganizationProgramsTuyenTM.ProgramToanNSID" class="form-select" asp-items="ViewBag.ProgramToanNSID"></select>
+                <select id="OrganizationProgramsTuyenTM_ProgramToanNSID" asp-for="OrganizationProgramsTuyenTM.ProgramToanNSID" class="form-select" asp-items="ViewBag.ProgramToanNSID"></select>
                 <span asp-validation-for="OrganizationProgramsTuyenTM.ProgramToanNSID" class="text-danger"></span>
             </div>
 
@@ -35,7 +35,7 @@
 
             <div class="col-md-6">
                 <label asp-for="OrganizationProgramsTuyenTM.JoinedDate" class="form-label"></label>
-                <input type="text"
+                <input id="OrganizationProgramsTuyenTM_JoinedDate" type="text"
                        class="form-control"
                        value="@Model.OrganizationProgramsTuyenTM.JoinedDate.ToString("HH:mm dd/MM/yyyy")"
                        readonly />
@@ -133,6 +133,29 @@
 <script>
     "use strict";
 
+    // Hàm chuyển đổi định dạng "HH:mm dd/MM/yyyy" sang ISO string
+    function parseDateTimeVNFormatToISOString(dateString) {
+        if (!dateString) return null;
+
+        const parts = dateString.trim().split(" ");
+        if (parts.length !== 2) return null;
+
+        const timeParts = parts[0].split(":");
+        const dateParts = parts[1].split("/");
+
+        if (timeParts.length !== 2 || dateParts.length !== 3) return null;
+
+        const hours = parseInt(timeParts[0], 10);
+        const minutes = parseInt(timeParts[1], 10);
+        const day = parseInt(dateParts[0], 10);
+        const month = parseInt(dateParts[1], 10) - 1; // tháng trong JS bắt đầu từ 0
+        const year = parseInt(dateParts[2], 10);
+
+        const dateObj = new Date(year, month, day, hours, minutes);
+        return dateObj.toISOString();
+    }
+
+    // Kết nối SignalR
     var connection = new signalR.HubConnectionBuilder().withUrl("/DrugPreventionHub").build();
 
     connection.start().then(function () {
@@ -141,15 +164,18 @@
         return console.error(err.toString());
     });
 
+    // Bắt sự kiện click nút Save Changes with SignalR
     document.getElementById("btnHubUpdate").addEventListener("click", function (event) {
+        event.preventDefault();
 
+        const joinedDateRaw = document.getElementById("OrganizationProgramsTuyenTM_JoinedDate").value;
+        const joinedDateISO = parseDateTimeVNFormatToISOString(joinedDateRaw);
+        const lastUpdatedISO = new Date().toISOString();
 
-    var dataObj = JSON.stringify({
-
-            //int tự tăng thì để null
+        const dataObj = JSON.stringify({
             OrganizationProgramTuyenTMID: document.getElementById("OrganizationProgramsTuyenTM_OrganizationProgramTuyenTMID").value,
-            JoinedDate: new Date().toISOString(),
-            LastUpdated: new Date().toISOString(),
+            JoinedDate: joinedDateISO,
+            LastUpdated: lastUpdatedISO,
             IsSponsor: document.getElementById("IsSponsor").checked,
             IsOrganizer: document.getElementById("IsOrganizer").checked,
             ContributionDescription: document.getElementById("OrganizationProgramsTuyenTM_ContributionDescription").value,
@@ -158,13 +184,12 @@
             Feedback: document.getElementById("OrganizationProgramsTuyenTM_Feedback").value,
             OrganizationID: document.getElementById("OrganizationProgramsTuyenTM_OrganizationID").value,
             ProgramToanNSID: document.getElementById("OrganizationProgramsTuyenTM_ProgramToanNSID").value
-            });
+        });
 
-        console.log(dataObj);
+        console.log("Sending via SignalR:", dataObj);
 
         connection.invoke("HubUpdate_OrganizationProgramTuyenTM", dataObj).catch(function (err) {
             return console.error(err.toString());
         });
-        event.preventDefault();
-          });
+    });
 </script>

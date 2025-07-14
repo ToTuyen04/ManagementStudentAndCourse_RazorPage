@@ -9,9 +9,11 @@ using Microsoft.EntityFrameworkCore;
 using DrugPrevention.Repositories.TuyenTM.DBContext;
 using DrugPrevention.Repositories.TuyenTM.Models;
 using DrugPrevention.Services.TuyenTM;
+using Microsoft.AspNetCore.Authorization;
 
 namespace DrugPrevention.RazorWebApp.TuyenTM.Pages.OrganizationProgramTuyenTM
 {
+    [Authorize(Roles = "1, 2")]
     public class EditModel : PageModel
     {
         private readonly IOrganizationProgramsTuyenTMService _organizationProgramsTuyenTMService;

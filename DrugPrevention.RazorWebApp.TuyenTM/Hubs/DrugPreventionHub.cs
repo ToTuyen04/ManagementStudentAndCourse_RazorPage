@@ -87,7 +87,9 @@ namespace DrugPrevention.RazorWebApp.TuyenTM.Hubs
         public async Task HubUpdate_OrganizationProgramTuyenTM(string organizationProgramTuyenTMJsonString)
         {
             var item = JsonConvert.DeserializeObject<OrganizationProgramsTuyenTM>(organizationProgramTuyenTMJsonString);
-            
+
+            await _organizationProgramsTuyenTMService.UpdateAsync(item);
+
             var organization = await _organizationsTuyenTMService.GetByIdAsync(item.OrganizationID);
             var communityProgram = await _communityProgramToanNSService.GetByIdAsync(item.ProgramToanNSID);
             var viewModel = new
@@ -105,8 +107,6 @@ namespace DrugPrevention.RazorWebApp.TuyenTM.Hubs
                 ProgramName = communityProgram?.ProgramName
             };
             await Clients.All.SendAsync("Receiver_UpdateOrganizationProgramTuyenTM", viewModel);
-
-            await _organizationProgramsTuyenTMService.UpdateAsync(item);
         }
     } 
 }

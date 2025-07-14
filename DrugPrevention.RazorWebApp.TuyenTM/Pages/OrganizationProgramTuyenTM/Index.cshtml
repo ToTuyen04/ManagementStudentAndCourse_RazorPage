@@ -79,8 +79,8 @@
                 <td>${item.fundingAmount?.toLocaleString('vi-VN') ?? "None"} VNĐ</td>
                 <td>${item.feedback ?? ""}</td>
                 <td>${formatDateTime(item.lastUpdated)}</td>
-                <td>${item.organization?.organizationName ?? ""}</td>
-                <td>${item.programToanNS?.programName ?? ""}</td>
+                <td>${item?.organizationName ?? ""}</td>
+                <td>${item?.programName ?? ""}</td>
                 <td>
                     <div class="btn-group btn-group-sm">
                         <a class="btn btn-warning" href="/OrganizationProgramTuyenTM/Edit/${item.organizationProgramTuyenTMID}">Edit</a>
